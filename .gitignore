@@ -1,0 +1,7 @@
+a.out
+.DS_Store
+a.out.dSYM/
+*.o
+*.a
+*.txt
+test.c
