@@ -3,5 +3,5 @@ a.out
 a.out.dSYM/
 *.o
 *.a
-*.txt
-test.c
+.vscode/
+test/
