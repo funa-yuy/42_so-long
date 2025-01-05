@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/05 16:55:15 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/05 18:35:06 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <X11/keysym.h>
 
-# define T_SIZE 64
+# define T_SIZE 32
 # define ESC 53
 
 typedef struct	s_data {
@@ -91,11 +91,11 @@ void	*my_mlx_xpm_file_to_image(void *mlx, char *filename)
 
 int	read_img(t_data *vars)
 {
-	vars->img = my_mlx_xpm_file_to_image(vars->mlx, "textures/p.xpm");
-	vars->c_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/c.xpm");
-	vars->e_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/e.xpm");
-	vars->w_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/1.xpm");
-	vars->b_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/0.xpm");
+	vars->img = my_mlx_xpm_file_to_image(vars->mlx, "textures/souzou/souzou_got_00.xpm");
+	vars->c_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/souzou/souzou_got_05.xpm");
+	vars->e_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/souzou/souzou_got_10.xpm");
+	vars->w_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/souzou/souzou_got_15.xpm");
+	vars->b_img = my_mlx_xpm_file_to_image(vars->mlx, "textures/souzou/souzou_got_19.xpm");
 	return (0);
 }
 
