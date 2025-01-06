@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/05 18:35:06 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:25:53 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <X11/keysym.h>
+#include <X11/X.h>
+
 
 # define T_SIZE 32
 # define ESC 53
@@ -33,10 +36,21 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
+int	my_close(t_data *vars)
+{
+	// printf("my_close keycode: %x\n", keycode);
+	printf("my_close vars: %p\n", vars);
+	printf("my_close img: %p\n", vars->img);
+	// mlx_destroy_window(vars->mlx, vars->win);
+	free(vars->img);
+	exit(1);
+	return (0);
+}
 int	my_key_close(int keycode, t_data *vars)
 {
+	printf("my_key_close keycode: %x\n", keycode);
 	if (keycode == XK_Escape)
-		mlx_destroy_window(vars->mlx, vars->win);
+		my_close(vars);
 	else if (keycode == XK_w)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->c_img, 50, 50);
 	else if (keycode == XK_a)
@@ -47,14 +61,6 @@ int	my_key_close(int keycode, t_data *vars)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->b_img, 200, 200);
 	else
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 10, 10);
-	return (0);
-}
-
-int	my_close(int keycode, t_data *vars)
-{
-	mlx_destroy_window(vars->mlx, vars->win);
-	// free(vars->img);
-	// exit(1);
 	return (0);
 }
 
@@ -115,8 +121,10 @@ int	main(void)
 	// vars.addr[1] = 0xCC; // Green
 	// vars.addr[2] = 0xFF; // Red
 	// vars.addr[3] = 0xFF;
+	printf("main vars: %p\n", &vars);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
-	mlx_hook(vars.win, 17, 1L<<2, my_close, &vars);
-	mlx_hook(vars.win, 2, 1L<<0, my_key_close, &vars);
+	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, my_close, &vars);
+	mlx_key_hook(vars.win, my_key_close, &vars);
+	// mlx_hook(vars.win, 2, 1L<<0, my_key_close, &vars);
 	mlx_loop(vars.mlx);
 }
