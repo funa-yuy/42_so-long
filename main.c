@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/06 19:25:53 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:11:29 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	my_close(t_data *vars)
 	// printf("my_close keycode: %x\n", keycode);
 	printf("my_close vars: %p\n", vars);
 	printf("my_close img: %p\n", vars->img);
-	// mlx_destroy_window(vars->mlx, vars->win);
-	free(vars->img);
+	mlx_destroy_window(vars->mlx, vars->win);
+	// free(vars->img);
 	exit(1);
 	return (0);
 }
@@ -70,6 +70,24 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
+}
+
+void	my_mlx_put_map(t_data *vars)
+{
+	int	y;
+	int	x;
+
+	x = 0;
+	while (x < 18)
+	{
+		y = 0;
+		while (y < 10)
+		{
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->img,  T_SIZE * x, T_SIZE * y);
+			y++;
+		}
+		x++;
+	}
 }
 
 void	*my_mlx_xpm_file_to_image(void *mlx, char *filename)
@@ -115,6 +133,7 @@ int	main(void)
 	// vars.img = mlx_new_image(vars.mlx, 500, 500);
 	read_img(&vars);
 	vars.win = mlx_new_window(vars.mlx, 600, 500, "Hello world!");
+	my_mlx_put_map(&vars);
 	// vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length,
 	// 							&vars.endian);
 	// vars.addr[0] = 0x33; // Blue
@@ -125,6 +144,5 @@ int	main(void)
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, my_close, &vars);
 	mlx_key_hook(vars.win, my_key_close, &vars);
-	// mlx_hook(vars.win, 2, 1L<<0, my_key_close, &vars);
 	mlx_loop(vars.mlx);
 }
