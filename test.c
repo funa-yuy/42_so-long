@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 01:59:33 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/08 02:19:44 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/08 03:19:20 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 typedef struct s_img{
 	char	**repo;
 	char	**fill;
-	int		y_column;//列(縦軸)
-	int		x_row;//行(横軸)
-	int		empty;//敵の数
-	int		wall;//数
-	int		collects;//数
-	int		exit;//数
-	int		player;//数
+	int	y_column;//列(縦軸)
+	int	x_row;//行(横軸)
+	int	empty;//敵の数
+	int	wall;//数
+	int	collects;//数
+	int	exit;//数
+	int	player;//数
 	void	*em_img;
 	void	*wall_img;
 	void	*col_img;
@@ -86,11 +86,13 @@ typedef struct	s_data {
 // }
 
 
-// void	img_disply(int components, void	*img, int x, int y)
-// {
-// 	// mlx_put_image_to_window(data->mlx, data->win, img, T_SIZE * x, T_SIZE * y);
-// 	components++;
-// }
+void	img_disply(int *components, void	*img, int x, int y, char s)
+{
+	(void)img;
+	// mlx_put_image_to_window(data->mlx, data->win, img, T_SIZE * x, T_SIZE * y);
+	(*components)++;
+	printf("%c 合計:%d x:%d y:%d \n", s, *components, T_SIZE * x, T_SIZE * y);
+}
 
 void	read_map(t_data *data, char *filename)
 {
@@ -107,23 +109,24 @@ void	read_map(t_data *data, char *filename)
 		printf("Map file is empty.");
 	while (line != NULL && line[0] != '\n')
 	{
+		printf("player : %d\n", data->img->player);
 		i = 0;
 		while(line[i] != '\0')
 		{
 			if (line[i] == '0')
-				printf("0");
+				img_disply(&data->img->empty, data->img->em_img, j, i, line[i]);
 			else if (line[i] == '1')
-				printf("1");
+				img_disply(&data->img->wall, data->img->wall_img, j, i, line[i]);
 			else if (line[i] == 'C')
-				printf("C");
+				img_disply(&data->img->collects, data->img->col_img, j, i, line[i]);
 			else if (line[i] == 'E')
-				printf("E");
+				img_disply(&data->img->exit, data->img->exit_img, j, i, line[i]);
 			else if (line[i] == 'P')
-				printf("P");
+				img_disply(&data->img->player, data->img->p_img, j, i, line[i]);
 			i++;
 		}
 		printf("\n");
-		data->img->x_row = i;
+		data->img->x_row = --i;
 		free(line);
 		line = get_next_line(data->fd);
 		j++;
@@ -138,7 +141,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	// void	*mlx;
 	t_data	data;
-	t_img	img;
+	t_img   img = {0};  // 全てのメンバを0で初期化
 	// void	*mlx_win;
 
 //画像の読み込み
@@ -146,6 +149,13 @@ int	main(int argc, char **argv)
 	// read_img(&data, &img);
 //MAPの読み込み
 	read_map(&data, argv[1]);
+	printf("empty = %d\n", data.img->empty);
+	printf("wall = %d\n", data.img->wall);
+	printf("collects = %d\n", data.img->collects);
+	printf("exit = %d\n", data.img->exit);
+	printf("player = %d\n", data.img->player);
+	printf("y_column = %d\n", data.img->y_column);
+	printf("x_row = %d\n", data.img->x_row);
 	// my_mlx_put_map(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/08 02:22:19 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/08 03:18:41 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ void	read_img(t_data *data, t_img *img)
 }
 
 
-void	img_disply(int components, void	*img, int x, int y)
+void	img_disply(int *components, void	*img, int x, int y)
 {
 	mlx_put_image_to_window(data->mlx, data->win, img, T_SIZE * x, T_SIZE * y);
-	components++;
+	(*components)++;
 }
 
 void	read_map(t_data *data, char *filename)
@@ -162,18 +162,18 @@ void	read_map(t_data *data, char *filename)
 		while(line[i] != '\0')
 		{
 			if (line[i] == '0')
-				img_disply(data->img->empty, data->img->em_img, j, i);
+				img_disply(&data->img->empty, data->img->em_img, j, i);
 			else if (line[i] == '1')
-				img_disply(data->img->wall, data->img->wall_img, j, i);
+				img_disply(&data->img->wall, data->img->wall_img, j, i);
 			else if (line[i] == 'C')
-				img_disply(data->img->collects, data->img->col_img, j, i);
+				img_disply(&data->img->collects, data->img->col_img, j, i);
 			else if (line[i] == 'E')
-				img_disply(data->img->exit, data->img->exit_img, j, i);
+				img_disply(&data->img->exit, data->img->exit_img, j, i);
 			else if (line[i] == 'P')
-				img_disply(data->img->player, data->img->p_img, j, i);
+				img_disply(&data->img->player, data->img->p_img, j, i);
 			i++;
 		}
-		data->img->x_row = i;
+		data->img->x_row = --i;
 		free(line);
 		line = get_next_line(data->fd);
 		j++;
@@ -191,6 +191,7 @@ int	main(int argc, char **argv)
 	t_img	img;
 	void	*mlx_win;
 
+	img = {0};
 	data.mlx = mlx_init();
 	// data.img = mlx_new_image(data.mlx, 500, 500);
 
@@ -209,7 +210,6 @@ int	main(int argc, char **argv)
 	// data.addr[1] = 0xCC; // Green
 	// data.addr[2] = 0xFF; // Red
 	// data.addr[3] = 0xFF;
-	printf("main data: %p\n", &data);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, my_close, &data);
 	mlx_key_hook(data.win, my_key_close, &data);
