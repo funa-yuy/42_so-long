@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/07 22:25:39 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/08 02:22:19 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,14 +144,13 @@ void	img_disply(int components, void	*img, int x, int y)
 
 void	read_map(t_data *data, char *filename)
 {
-	int		read_byte;
 	char	*line;
 	int	i;
 	int	j;
 
 	j = 0;
-	data.fd = open(filename, O_RDONLY);
-	if (data.fd < 0)
+	data->fd = open(filename, O_RDONLY);
+	if (data->fd < 0)
 		put_error_exit("Error\nNo such file or directory\n");
 	line = get_next_line(data->fd);
 	if (line == NULL)
@@ -181,11 +180,12 @@ void	read_map(t_data *data, char *filename)
 	}
 	data->img->y_column = j;
 	free(line);
-	close(game->fd);
+	close(data->fd);
 }
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
 	void	*mlx;
 	t_data	data;
 	t_img	img;
@@ -199,7 +199,7 @@ int	main(int argc, char **argv)
 	read_img(&data, &img);
 
 //MAPの読み込み
-	read_map(argv);
+	read_map(&data, argv[1]);
 	data.win = mlx_new_window(data.mlx, 600, 500, "Hello world!");
 	my_mlx_put_map(&data);
 
