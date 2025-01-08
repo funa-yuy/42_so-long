@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/08 18:22:35 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:30:23 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_img{
 	char	**fill;
 	int		y_column;//列(縦軸)
 	int		x_row;//行(横軸)
-	int		empty;//敵の数
+	int		empty;//何もないとこの数
 	int		wall;//数
 	int		collects;//数
 	int		exit;//数
@@ -128,11 +128,11 @@ void	*my_mlx_xpm_file_to_image(void *mlx, char *filename)
 
 void	read_img(t_data *data, t_img *img)
 {
-	img->em_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_00.xpm");
-	img->wall_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_05.xpm");
-	img->col_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_10.xpm");
-	img->exit_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_15.xpm");
-	img->p_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_19.xpm");
+	img->em_img = my_mlx_xpm_file_to_image(data->mlx, "textures/empty.xpm");
+	img->wall_img = my_mlx_xpm_file_to_image(data->mlx, "textures/wall.xpm");
+	img->col_img = my_mlx_xpm_file_to_image(data->mlx, "textures/collects.xpm");
+	img->exit_img = my_mlx_xpm_file_to_image(data->mlx, "textures/exit.xpm");
+	img->p_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_10.xpm");
 }
 
 
