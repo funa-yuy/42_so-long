@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/08 19:30:23 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/08 19:45:18 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,16 @@ int	my_close(t_data *data)
 }
 int	my_key_close(int keycode, t_data *data)
 {
-	printf("my_key_close keycode: %x\n", keycode);
 	if (keycode == XK_Escape)
 		my_close(data);
-	else if (keycode == XK_w)
-		mlx_put_image_to_window(data->mlx, data->win, data->img->em_img, 50, 50);
-	else if (keycode == XK_a)
-		mlx_put_image_to_window(data->mlx, data->win, data->img->wall_img, 100, 100);
-	else if (keycode == XK_s)
-		mlx_put_image_to_window(data->mlx, data->win, data->img->col_img, 150, 150);
-	else if (keycode == XK_d)
-		mlx_put_image_to_window(data->mlx, data->win, data->img->exit_img, 200, 200);
-	else
-		mlx_put_image_to_window(data->mlx, data->win, data->img->p_img, 10, 10);
+	else if (keycode == XK_w || keycode == XK_Up)
+			printf("key push w\n");
+	else if (keycode == XK_a || keycode == XK_Left)
+			printf("key push a\n");
+	else if (keycode == XK_s || keycode == XK_Down)
+			printf("key push s\n");
+	else if (keycode == XK_d || keycode == XK_Right)
+			printf("key push d\n");
 	return (0);
 }
 
@@ -199,7 +196,7 @@ int	main(int argc, char **argv)
 	read_img(&data, &img);
 	// read_map(&data, argv[1]);
 	// data.win = mlx_new_window(data.mlx, data.img->y_column * T_SIZE, data.img->x_row * T_SIZE, "Hello world!");
-	data.win = mlx_new_window(data.mlx, 416, 160, "Hello world!");
+	data.win = mlx_new_window(data.mlx, 800, 500, "Hello world!");
 //MAPの読み込み
 	read_map(&data, argv[1]);
 	// my_mlx_put_map(&data);
