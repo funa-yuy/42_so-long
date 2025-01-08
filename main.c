@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/08 03:18:41 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:22:35 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <X11/keysym.h>
 #include <X11/X.h>
-
+#include "./lib/get_next_line/get_next_line.h"
 
 # define T_SIZE 32
 
@@ -52,8 +52,8 @@ typedef struct	s_data {
 int	my_close(t_data *data)
 {
 	// printf("my_close keycode: %x\n", keycode);
-	printf("my_close data: %p\n", data);
-	printf("my_close img: %p\n", data->img);
+	// printf("my_close data: %p\n", data);
+	// printf("my_close img: %p\n", data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	// free(data->img);
 	exit(1);
@@ -65,15 +65,15 @@ int	my_key_close(int keycode, t_data *data)
 	if (keycode == XK_Escape)
 		my_close(data);
 	else if (keycode == XK_w)
-		mlx_put_image_to_window(data->mlx, data->win, data->c_img, 50, 50);
+		mlx_put_image_to_window(data->mlx, data->win, data->img->em_img, 50, 50);
 	else if (keycode == XK_a)
-		mlx_put_image_to_window(data->mlx, data->win, data->e_img, 100, 100);
+		mlx_put_image_to_window(data->mlx, data->win, data->img->wall_img, 100, 100);
 	else if (keycode == XK_s)
-		mlx_put_image_to_window(data->mlx, data->win, data->w_img, 150, 150);
+		mlx_put_image_to_window(data->mlx, data->win, data->img->col_img, 150, 150);
 	else if (keycode == XK_d)
-		mlx_put_image_to_window(data->mlx, data->win, data->b_img, 200, 200);
+		mlx_put_image_to_window(data->mlx, data->win, data->img->exit_img, 200, 200);
 	else
-		mlx_put_image_to_window(data->mlx, data->win, data->img, 10, 10);
+		mlx_put_image_to_window(data->mlx, data->win, data->img->p_img, 10, 10);
 	return (0);
 }
 
@@ -136,7 +136,7 @@ void	read_img(t_data *data, t_img *img)
 }
 
 
-void	img_disply(int *components, void	*img, int x, int y)
+void	img_disply(t_data *data, int *components, void *img, int x, int y)
 {
 	mlx_put_image_to_window(data->mlx, data->win, img, T_SIZE * x, T_SIZE * y);
 	(*components)++;
@@ -151,10 +151,10 @@ void	read_map(t_data *data, char *filename)
 	j = 0;
 	data->fd = open(filename, O_RDONLY);
 	if (data->fd < 0)
-		put_error_exit("Error\nNo such file or directory\n");
+		printf("Error\nNo such file or directory\n");
 	line = get_next_line(data->fd);
 	if (line == NULL)
-		ft_error_general("Map file is empty.");
+		printf("Map file is empty.");
 
 	while (line != NULL && line[0] != '\n')
 	{
@@ -162,15 +162,15 @@ void	read_map(t_data *data, char *filename)
 		while(line[i] != '\0')
 		{
 			if (line[i] == '0')
-				img_disply(&data->img->empty, data->img->em_img, j, i);
+				img_disply(data, &data->img->empty, data->img->em_img, i, j);
 			else if (line[i] == '1')
-				img_disply(&data->img->wall, data->img->wall_img, j, i);
+				img_disply(data, &data->img->wall, data->img->wall_img, i, j);
 			else if (line[i] == 'C')
-				img_disply(&data->img->collects, data->img->col_img, j, i);
+				img_disply(data, &data->img->collects, data->img->col_img, i, j);
 			else if (line[i] == 'E')
-				img_disply(&data->img->exit, data->img->exit_img, j, i);
+				img_disply(data, &data->img->exit, data->img->exit_img, i, j);
 			else if (line[i] == 'P')
-				img_disply(&data->img->player, data->img->p_img, j, i);
+				img_disply(data, &data->img->player, data->img->p_img, i, j);
 			i++;
 		}
 		data->img->x_row = --i;
@@ -186,23 +186,23 @@ void	read_map(t_data *data, char *filename)
 int	main(int argc, char **argv)
 {
 	(void)argc;
-	void	*mlx;
+	// void	*mlx;
 	t_data	data;
-	t_img	img;
-	void	*mlx_win;
+	t_img	img = {0};
+	// void	*mlx_win;
 
-	img = {0};
 	data.mlx = mlx_init();
 	// data.img = mlx_new_image(data.mlx, 500, 500);
 
 //画像の読み込み
 	data.img = &img;
 	read_img(&data, &img);
-
+	// read_map(&data, argv[1]);
+	// data.win = mlx_new_window(data.mlx, data.img->y_column * T_SIZE, data.img->x_row * T_SIZE, "Hello world!");
+	data.win = mlx_new_window(data.mlx, 416, 160, "Hello world!");
 //MAPの読み込み
 	read_map(&data, argv[1]);
-	data.win = mlx_new_window(data.mlx, 600, 500, "Hello world!");
-	my_mlx_put_map(&data);
+	// my_mlx_put_map(&data);
 
 	// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length,
 	// 							&data.endian);
