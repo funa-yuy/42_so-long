@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 19:45:41 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/09 20:16:23 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:40:36 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,12 @@ typedef struct	s_data {
 
 int	my_close(t_data *data)
 {
-	// printf("my_close keycode: %x\n", keycode);
-	// printf("my_close data: %p\n", data);
-	// printf("my_close img: %p\n", data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	// free(data->img);
 	exit(1);
 	return (0);
 }
-int	my_key_close(int keycode, t_data *data)
-{
-	if (keycode == XK_Escape)
-		my_close(data);
-	else if (keycode == XK_w || keycode == XK_Up)
-			printf("key push w\n");
-	else if (keycode == XK_a || keycode == XK_Left)
-			printf("key push a\n");
-	else if (keycode == XK_s || keycode == XK_Down)
-			printf("key push s\n");
-	else if (keycode == XK_d || keycode == XK_Right)
-			printf("key push d\n");
-	return (0);
-}
+
 
 void	*my_mlx_xpm_file_to_image(void *mlx, char *filename)
 {
@@ -102,6 +86,78 @@ void	read_img(t_data *data, t_img *img)
 	img->exit_img = my_mlx_xpm_file_to_image(data->mlx, "textures/exit.xpm");
 	img->p_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_01.xpm");
 }
+
+
+
+void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
+{
+	//壁だったとき
+	if (data->p[y][x + m] == img->wall_img)
+		return;
+
+	//出口だったとき
+	if (data->p[y][x + m] == img->exit_img)
+	{
+		printf("Game Clear\n");
+		my_close(data);
+	}
+
+	data->p[y][x + m] = img->p_img;
+	data->p[y][x] = img->em_img;
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x + m], T_SIZE * x + (T_SIZE * m), T_SIZE * y);
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], T_SIZE * x, T_SIZE * y);
+
+	data->player.x = x + m;
+}
+
+void	move_player_y(t_data *data, t_img *img, int x, int y, int m)
+{
+	//壁だったとき
+	if (data->p[y + m][x] == img->wall_img)
+		return;
+
+	//出口だったとき
+	if (data->p[y + m][x] == img->exit_img)
+	{
+		printf("Game Clear\n");
+		my_close(data);
+	}
+
+	data->p[y + m][x] = img->p_img;
+	data->p[y][x] = img->em_img;
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y + m][x], T_SIZE * x, T_SIZE * y + (T_SIZE * m));
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], T_SIZE * x, T_SIZE * y);
+
+	data->player.y = y + m;
+}
+
+int	my_key_close(int keycode, t_data *data)
+{
+	if (keycode == XK_Escape)
+		my_close(data);
+	else if (keycode == XK_w || keycode == XK_Up)
+	{
+		move_player_y(data, data->img, data->player.x, data->player.y, -1);
+		printf("key push w\n");
+	}
+	else if (keycode == XK_a || keycode == XK_Left)
+	{
+		move_player_x(data, data->img, data->player.x, data->player.y, -1);
+		printf("key push a\n");
+	}
+	else if (keycode == XK_s || keycode == XK_Down)
+	{
+		move_player_y(data, data->img, data->player.x, data->player.y, 1);
+		printf("key push s\n");
+	}
+	else if (keycode == XK_d || keycode == XK_Right)
+	{
+		move_player_x(data, data->img, data->player.x, data->player.y, 1);
+		printf("key push d\n");
+	}
+	return (0);
+}
+
 
 
 void	img_disply(t_data *data, void *p_img[1000][1000])

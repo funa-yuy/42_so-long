@@ -44,22 +44,22 @@ int	my_key_push(int keycode, t_data *data)
 		my_close(data);
 	else if (keycode == XK_w || keycode == XK_Up)
 	{
-		move_player_x(&data, data->img, data->player->x, data->player->y, 1);
+		move_player_y(&data, data->img, data->player->x, data->player->y, 1);
 		printf("key push w\n");
 	}
 	else if (keycode == XK_a || keycode == XK_Left)
 	{
-		move_player_y(&data, data->img, data->player->x, data->player->y, 1);
+		move_player_x(&data, data->img, data->player->x, data->player->y, 1);
 		printf("key push a\n");
 	}
 	else if (keycode == XK_s || keycode == XK_Down)
 	{
-		move_player_x(&data, data->img, data->player->x, data->player->y, -1);
+		move_player_y(&data, data->img, data->player->x, data->player->y, -1);
 		printf("key push s\n");
 	}
 	else if (keycode == XK_d || keycode == XK_Right)
 	{
-		move_player_y(&data, data->img, data->player->x, data->player->y, -1);
+		move_player_x(&data, data->img, data->player->x, data->player->y, -1);
 		printf("key push d\n");
 	}
 	return (0);
