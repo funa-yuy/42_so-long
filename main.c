@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/08 19:45:18 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:57:48 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	read_img(t_data *data, t_img *img)
 	img->wall_img = my_mlx_xpm_file_to_image(data->mlx, "textures/wall.xpm");
 	img->col_img = my_mlx_xpm_file_to_image(data->mlx, "textures/collects.xpm");
 	img->exit_img = my_mlx_xpm_file_to_image(data->mlx, "textures/exit.xpm");
-	img->p_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_10.xpm");
+	img->p_img = my_mlx_xpm_file_to_image(data->mlx, "textures/souzou/souzou_got_01.xpm");
 }
 
 
