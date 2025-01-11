@@ -4,3 +4,6 @@
 [submodule "lib/libft"]
 	path = lib/libft
 	url = https://github.com/funa-yuy/42_libft.git
+[submodule "lib/ft_printf"]
+	path = lib/ft_printf
+	url = https://github.com/funa-yuy/42_printf.git
