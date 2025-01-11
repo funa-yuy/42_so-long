@@ -3,15 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+         #
+#    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/08 01:58:36 by miyuu            ###   ########.fr        #
+#    Updated: 2025/01/11 19:21:10 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# cc -Wall -Wextra -Werror -fsanitize=address -g -Iminilibx-linux -Ilib/get_next_line/ main.c -Lminilibx-linux -lmlx -lXext -lX11  lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
+
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 NAME = so_long
 
 # Directories
@@ -22,22 +25,7 @@ MLX_DIR	= ./minilibx-linux
 MLX_FLAGS = -I$(MLX_DIR) -L$(MLX_DIR) -lmlx -lXext -lX11
 
 # Source files
-SRC_FILES = create_stack.c \
-			error_check.c \
-			free_stack.c \
-			ft_stacksize.c \
-			marge_move.c \
-			merge_operations.c \
-			merge_diff.c \
-			ps_atoi.c \
-			push_swap.c \
-			merge_sort.c \
-			sort_push.c \
-			sort_reverse_rotate.c \
-			sort_rotate.c \
-			sort_short_utils.c \
-			sort_short.c \
-			sort_swap.c
+SRC_FILES = main.c
 
 GNL_FILES = get_next_line.c \
 			get_next_line_utils.c
@@ -58,10 +46,10 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR)
 	@$(MAKE) -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(MLX_FLAGS) $(GNL_FLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS) $(LIBFT) $(MLX)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(GNL_FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(GNL_DIR) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
@@ -71,7 +59,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@$(MAKE) -C $(MLX_DIR) fclean
+	@$(MAKE) -C $(MLX_DIR) clean
 
 re: fclean all
 

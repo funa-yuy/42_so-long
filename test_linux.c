@@ -6,9 +6,10 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 19:45:41 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/09 20:40:36 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:38:34 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <mlx.h>
 #include <fcntl.h>
@@ -21,12 +22,16 @@
 
 # define T_SIZE 32
 
-typedef struct s_player{
-	int			x;
-	int			y;
-}			t_player;
-
 typedef struct s_img{
+	char	**repo;
+	char	**fill;
+	int		y_column;//列(縦軸)
+	int		x_row;//行(横軸)
+	int		empty;//何もないとこの数
+	int		wall;//数
+	int		collects;//数
+	int		exit;//数
+	int		player;//数
 	void	*em_img;
 	void	*wall_img;
 	void	*col_img;
@@ -39,21 +44,62 @@ typedef struct	s_data {
 	void	*win;
 	t_img	*img;
 	int		fd;
-	int		y_column;//列(縦軸)
-	int		x_row;//行(横軸)
-	void	*p[1000][1000];
-	t_player player;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }				t_data;
-
 
 int	my_close(t_data *data)
 {
+	// printf("my_close keycode: %x\n", keycode);
+	// printf("my_close data: %p\n", data);
+	// printf("my_close img: %p\n", data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	// free(data->img);
 	exit(1);
 	return (0);
 }
+int	my_key_close(int keycode, t_data *data)
+{
+	if (keycode == XK_Escape)
+		my_close(data);
+	else if (keycode == XK_w || keycode == XK_Up)
+			printf("key push w\n");
+	else if (keycode == XK_a || keycode == XK_Left)
+			printf("key push a\n");
+	else if (keycode == XK_s || keycode == XK_Down)
+			printf("key push s\n");
+	else if (keycode == XK_d || keycode == XK_Right)
+			printf("key push d\n");
+	return (0);
+}
 
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	*(unsigned int*)dst = color;
+// }
+
+// void	my_mlx_put_map(t_data *data)
+// {
+// 	int	y;
+// 	int	x;
+
+// 	x = 0;
+// 	while (x < 18)
+// 	{
+// 		y = 0;
+// 		while (y < 10)
+// 		{
+// 			mlx_put_image_to_window(data->mlx, data->win, data->img,  T_SIZE * x, T_SIZE * y);
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
 
 void	*my_mlx_xpm_file_to_image(void *mlx, char *filename)
 {
@@ -88,97 +134,13 @@ void	read_img(t_data *data, t_img *img)
 }
 
 
-
-void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
+void	img_disply(t_data *data, int *components, void *img, int x, int y)
 {
-	//壁だったとき
-	if (data->p[y][x + m] == img->wall_img)
-		return;
-
-	//出口だったとき
-	if (data->p[y][x + m] == img->exit_img)
-	{
-		printf("Game Clear\n");
-		my_close(data);
-	}
-
-	data->p[y][x + m] = img->p_img;
-	data->p[y][x] = img->em_img;
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x + m], T_SIZE * x + (T_SIZE * m), T_SIZE * y);
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], T_SIZE * x, T_SIZE * y);
-
-	data->player.x = x + m;
+	mlx_put_image_to_window(data->mlx, data->win, img, T_SIZE * x, T_SIZE * y);
+	(*components)++;
 }
 
-void	move_player_y(t_data *data, t_img *img, int x, int y, int m)
-{
-	//壁だったとき
-	if (data->p[y + m][x] == img->wall_img)
-		return;
-
-	//出口だったとき
-	if (data->p[y + m][x] == img->exit_img)
-	{
-		printf("Game Clear\n");
-		my_close(data);
-	}
-
-	data->p[y + m][x] = img->p_img;
-	data->p[y][x] = img->em_img;
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y + m][x], T_SIZE * x, T_SIZE * y + (T_SIZE * m));
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], T_SIZE * x, T_SIZE * y);
-
-	data->player.y = y + m;
-}
-
-int	my_key_close(int keycode, t_data *data)
-{
-	if (keycode == XK_Escape)
-		my_close(data);
-	else if (keycode == XK_w || keycode == XK_Up)
-	{
-		move_player_y(data, data->img, data->player.x, data->player.y, -1);
-		printf("key push w\n");
-	}
-	else if (keycode == XK_a || keycode == XK_Left)
-	{
-		move_player_x(data, data->img, data->player.x, data->player.y, -1);
-		printf("key push a\n");
-	}
-	else if (keycode == XK_s || keycode == XK_Down)
-	{
-		move_player_y(data, data->img, data->player.x, data->player.y, 1);
-		printf("key push s\n");
-	}
-	else if (keycode == XK_d || keycode == XK_Right)
-	{
-		move_player_x(data, data->img, data->player.x, data->player.y, 1);
-		printf("key push d\n");
-	}
-	return (0);
-}
-
-
-
-void	img_disply(t_data *data, void *p_img[1000][1000])
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < data->y_column)
-	{
-		x = 0;
-		while (x < data->x_row)
-		{
-			mlx_put_image_to_window(data->mlx, data->win, p_img[y][x], T_SIZE * x, T_SIZE * y);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	read_map(t_data *data, t_img *img, char *filename)
+void	read_map(t_data *data, char *filename)
 {
 	char	*line;
 	int	i;
@@ -198,26 +160,23 @@ void	read_map(t_data *data, t_img *img, char *filename)
 		while(line[i] != '\0')
 		{
 			if (line[i] == '0')
-				data->p[j][i] = img->em_img;
+				img_disply(data, &data->img->empty, data->img->em_img, i, j);
 			else if (line[i] == '1')
-				data->p[j][i] = img->wall_img;
+				img_disply(data, &data->img->wall, data->img->wall_img, i, j);
 			else if (line[i] == 'C')
-				data->p[j][i] = img->col_img;
+				img_disply(data, &data->img->collects, data->img->col_img, i, j);
 			else if (line[i] == 'E')
-				data->p[j][i] = img->exit_img;
+				img_disply(data, &data->img->exit, data->img->exit_img, i, j);
 			else if (line[i] == 'P')
-			{
-				data->p[j][i] = img->p_img;
-				data->player = (t_player){i, j};
-			}
+				img_disply(data, &data->img->player, data->img->p_img, i, j);
 			i++;
 		}
-		data->x_row = --i;
+		data->img->x_row = --i;
 		free(line);
 		line = get_next_line(data->fd);
 		j++;
 	}
-	data->y_column = j;
+	data->img->y_column = j;
 	free(line);
 	close(data->fd);
 }
@@ -225,23 +184,31 @@ void	read_map(t_data *data, t_img *img, char *filename)
 int	main(int argc, char **argv)
 {
 	(void)argc;
+	// void	*mlx;
 	t_data	data;
 	t_img	img = {0};
+	// void	*mlx_win;
 
 	data.mlx = mlx_init();
+	// data.img = mlx_new_image(data.mlx, 500, 500);
 
 //画像の読み込み
 	data.img = &img;
 	read_img(&data, &img);
+	// read_map(&data, argv[1]);
+	// data.win = mlx_new_window(data.mlx, data.img->y_column * T_SIZE, data.img->x_row * T_SIZE, "Hello world!");
+	data.win = mlx_new_window(data.mlx, 800, 500, "Hello world!");
 //MAPの読み込み
-	read_map(&data, &img, argv[1]);
-//ウィンドウ表示
-	data.win = mlx_new_window(data.mlx, data.x_row * T_SIZE, data.y_column * T_SIZE, "so_long");
+	read_map(&data, argv[1]);
+	// my_mlx_put_map(&data);
 
-//MAPの表示
-	img_disply(&data, data.p);
-
-
+	// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length,
+	// 							&data.endian);
+	// data.addr[0] = 0x33; // Blue
+	// data.addr[1] = 0xCC; // Green
+	// data.addr[2] = 0xFF; // Red
+	// data.addr[3] = 0xFF;
+	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, my_close, &data);
 	mlx_key_hook(data.win, my_key_close, &data);
 	mlx_loop(data.mlx);
