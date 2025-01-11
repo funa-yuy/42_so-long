@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/11 19:25:25 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/11 19:29:41 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_dat
 	t_img		*img;
 	int			fd;
 	int			count;
+	int			coll_con;
 	int			y_column;//列(縦軸)
 	int			x_row;//行(横軸)
 	void		*p[1000][1000];

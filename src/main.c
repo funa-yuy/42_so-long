@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/11 18:52:53 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/11 19:42:00 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
 	printf("Moves => %d times\n", data->count);
 	data->count++;
 	//壁だったとき
-	if (data->p[y][x + m] == img->wall_img)
+	if (data->p[y][x + m] == img->wall_img || (data->p[y][x + m] == img->exit_img && data->coll_con != 0))
 		return;
-
 	//出口だったとき
-	if (data->p[y][x + m] == img->exit_img)
+	if (data->p[y][x + m] == img->exit_img && data->coll_con == 0)
 	{
 		printf("Game Clear\n");
 		my_close(data);
 	}
-
+	if (data->p[y][x + m] == img->col_img)
+	{
+		data->coll_con--;
+		printf("Get 貝\n");
+	}
 	data->p[y][x + m] = img->p_img;
 	data->p[y][x] = img->em_img;
 	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x + m], T_SIZE * x + (T_SIZE * m), T_SIZE * y);
@@ -83,16 +86,19 @@ void	move_player_y(t_data *data, t_img *img, int x, int y, int m)
 	printf("Moves => %d times\n", data->count);
 	data->count++;
 	//壁だったとき
-	if (data->p[y + m][x] == img->wall_img)
+	if (data->p[y + m][x] == img->wall_img || (data->p[y + m][x] == img->exit_img && data->coll_con != 0))
 		return;
-
 	//出口だったとき
-	if (data->p[y + m][x] == img->exit_img)
+	if (data->p[y + m][x] == img->exit_img && data->coll_con == 0)
 	{
 		printf("Game Clear\n");
 		my_close(data);
 	}
-
+	if (data->p[y + m][x] == img->col_img)
+	{
+		data->coll_con--;
+		printf("Get 貝\n");
+	}
 	data->p[y + m][x] = img->p_img;
 	data->p[y][x] = img->em_img;
 	mlx_put_image_to_window(data->mlx, data->win, data->p[y + m][x], T_SIZE * x, T_SIZE * y + (T_SIZE * m));
@@ -161,7 +167,8 @@ void	read_map(t_data *data, t_img *img, char *filename)
 	line = get_next_line(data->fd);
 	if (line == NULL)
 		printf("Map file is empty.");
-
+//収集物の個数を初期化
+	data->coll_con = 0;
 	while (line != NULL && line[0] != '\n')
 	{
 		i = 0;
@@ -172,7 +179,11 @@ void	read_map(t_data *data, t_img *img, char *filename)
 			else if (line[i] == '1')
 				data->p[j][i] = img->wall_img;
 			else if (line[i] == 'C')
+			{
 				data->p[j][i] = img->col_img;
+				data->coll_con++;
+				printf(" %d coll\n", data->coll_con);
+			}
 			else if (line[i] == 'E')
 				data->p[j][i] = img->exit_img;
 			else if (line[i] == 'P')
@@ -210,7 +221,7 @@ int	main(int argc, char **argv)
 
 //MAPの表示
 	img_disply(&data, data.p);
-
+//移動回数を初期化
 	data.count = 1;
 
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, my_close, &data);
