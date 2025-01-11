@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:54:51 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 03:30:44 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 04:08:41 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*load_img_in_mlx(void *mlx, char *filename)
 	int		size;
 	void	*img;
 
-	size = T_SIZE;
+	size = IMG_SIZE;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{

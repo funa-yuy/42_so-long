@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/12 03:52:47 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 04:07:52 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	disply_img(t_data *data, void *p_img[1000][1000])
 		while (x < data->x_row)
 		{
 			mlx_put_image_to_window(data->mlx, data->win, \
-				p_img[y][x], T_SIZE * x, T_SIZE * y);
+				p_img[y][x], IMG_SIZE * x, IMG_SIZE * y);
 			x++;
 		}
 		y++;
@@ -77,8 +77,8 @@ int	main(int argc, char **argv)
 //MAPの読み込み
 	read_map(&data, &img, argv[1]);
 //ウィンドウ表示
-	data.win = mlx_new_window(data.mlx, data.x_row * T_SIZE, \
-		data.y_column * T_SIZE, "so_long");
+	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \
+		data.y_column * IMG_SIZE, "so_long");
 //MAPの表示
 	disply_img(&data, data.p);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, window_close, &data);

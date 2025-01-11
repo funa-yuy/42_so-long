@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:49:25 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 02:52:50 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 04:08:05 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
 	}
 	data->p[y][x + m] = img->p_img;
 	data->p[y][x] = img->em_img;
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x + m], T_SIZE * x + (T_SIZE * m), T_SIZE * y);
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], T_SIZE * x, T_SIZE * y);
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x + m], IMG_SIZE * x + (IMG_SIZE * m), IMG_SIZE * y);
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], IMG_SIZE * x, IMG_SIZE * y);
 
 	data->player.x = x + m;
 }
@@ -59,8 +59,8 @@ void	move_player_y(t_data *data, t_img *img, int x, int y, int m)
 	}
 	data->p[y + m][x] = img->p_img;
 	data->p[y][x] = img->em_img;
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y + m][x], T_SIZE * x, T_SIZE * y + (T_SIZE * m));
-	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], T_SIZE * x, T_SIZE * y);
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y + m][x], IMG_SIZE * x, IMG_SIZE * y + (IMG_SIZE * m));
+	mlx_put_image_to_window(data->mlx, data->win, data->p[y][x], IMG_SIZE * x, IMG_SIZE * y);
 
 	data->player.y = y + m;
 }

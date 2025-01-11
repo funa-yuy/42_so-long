@@ -3,27 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/11 19:29:41 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/12 04:11:39 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+/* header*/
+# include "get_next_line.h"
+// # include "ft_printf.h"
+
+/* mlx library */
 # include <mlx.h>
+
+/* library */
+# include <X11/keysym.h>
+# include <X11/X.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
-# include "get_next_line.h"
 
-# define T_SIZE	32
+/* define */
+# define IMG_SIZE	32
 
+/* struct */
 typedef struct s_player
 {
 	int			x;
