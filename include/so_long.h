@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 04:11:39 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 16:15:46 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,22 @@ typedef struct s_dat
 	void		*p[1000][1000];
 	t_player	player;
 }				t_data;
+
+/* init struct */
+void	init_data(t_data *data, t_img *img);
+
+/* read map&img */
+void	read_img(t_data *data, t_img *img);
+void	*load_img_in_mlx(void *mlx, char *filename);
+void	read_map(t_data *data, t_img *img, char *filename);
+
+/* set */
+void	disply_img(t_data *data, void *p_img[1000][1000]);
+
+/* event */
+int		key_push(int keycode, t_data *data);
+void	move_player_y(t_data *data, t_img *img, int x, int y, int m);
+void	move_player_x(t_data *data, t_img *img, int x, int y, int m);
+int		window_close(t_data *data);
 
 #endif
