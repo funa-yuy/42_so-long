@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:54:51 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 16:20:49 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:18:34 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*load_img_in_mlx(void *mlx, char *filename)
 	if (fd < 0)
 	{
 		// printf(2, "Error\nNo exist %s file\n", filename);
-		printf("Error\nNo exist %s file\n", filename);
+		ft_printf("Error\nNo exist %s file\n", filename);
 		exit(1);
 	}
 	close(fd);
@@ -31,7 +31,7 @@ void	*load_img_in_mlx(void *mlx, char *filename)
 	if (!img)
 	{
 		// printf(2, "Error\nFailed create %s\n", filename);
-		printf("Error\nFailed create %s\n", filename);
+		ft_printf("Error\nFailed create %s\n", filename);
 		exit(1);
 	}
 	return (img);

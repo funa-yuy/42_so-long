@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:49:25 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 16:32:45 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:18:24 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
 	//出口だったとき
 	if (data->p[y][x + m] == img->exit_img && data->coll_con == 0)
 	{
-		printf("Game Clear\n");
+		ft_printf("Game Clear\n");
 		window_close(data);
 	}
 	if (data->p[y][x + m] == img->col_img)
 	{
 		data->coll_con--;
-		printf("Get 貝\n");
+		ft_printf("Get 貝\n");
 	}
 	data->p[y][x + m] = img->p_img;
 	data->p[y][x] = img->em_img;
@@ -49,13 +49,13 @@ void	move_player_y(t_data *data, t_img *img, int x, int y, int m)
 	//出口だったとき
 	if (data->p[y + m][x] == img->exit_img && data->coll_con == 0)
 	{
-		printf("Game Clear\n");
+		ft_printf("Game Clear\n");
 		window_close(data);
 	}
 	if (data->p[y + m][x] == img->col_img)
 	{
 		data->coll_con--;
-		printf("Get 貝\n");
+		ft_printf("Get 貝\n");
 	}
 	data->p[y + m][x] = img->p_img;
 	data->p[y][x] = img->em_img;
@@ -72,22 +72,22 @@ int	key_push(int keycode, t_data *data)
 	else if (keycode == XK_w || keycode == XK_Up)
 	{
 		move_player_y(data, data->img, data->player.x, data->player.y, -1);
-		printf("key push w\n");
+		ft_printf("key push w\n");
 	}
 	else if (keycode == XK_a || keycode == XK_Left)
 	{
 		move_player_x(data, data->img, data->player.x, data->player.y, -1);
-		printf("key push a\n");
+		ft_printf("key push a\n");
 	}
 	else if (keycode == XK_s || keycode == XK_Down)
 	{
 		move_player_y(data, data->img, data->player.x, data->player.y, 1);
-		printf("key push s\n");
+		ft_printf("key push s\n");
 	}
 	else if (keycode == XK_d || keycode == XK_Right)
 	{
 		move_player_x(data, data->img, data->player.x, data->player.y, 1);
-		printf("key push d\n");
+		ft_printf("key push d\n");
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 03:48:20 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 18:38:24 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,16 @@ void	read_map(t_data *data, t_img *img, char *filename)
 	j = 0;
 	data->fd = open(filename, O_RDONLY);
 	if (data->fd < 0)
-		printf("Error\nNo such file or directory\n");
+	{
+		ft_printf("Error\nNo such file or directory\n");
+		exit(1);
+	}
 	line = get_next_line(data->fd);
 	if (line == NULL)
-		printf("Map file is empty.");
+	{
+		ft_printf("Map file is empty.\n");
+		exit(1);
+	}
 	while (line != NULL && line[0] != '\n')
 	{
 		i = 0;
@@ -39,7 +45,7 @@ void	read_map(t_data *data, t_img *img, char *filename)
 			{
 				data->p[j][i] = img->col_img;
 				data->coll_con++;
-				printf(" %d coll\n", data->coll_con);
+				ft_printf(" %d coll\n", data->coll_con);
 			}
 			else if (line[i] == 'E')
 				data->p[j][i] = img->exit_img;
@@ -48,8 +54,18 @@ void	read_map(t_data *data, t_img *img, char *filename)
 				data->p[j][i] = img->p_img;
 				data->player = (t_player){i, j};
 			}
+			// else
+			// {
+			// 	ft_printf("There is an invalid character.\n");
+			// 	exit(1);
+			// }
 			i++;
 		}
+		// if (j > 0 && data->x_row != --i)
+		// {
+		// 	ft_printf("Error\nNot rectangular\n");
+		// 	exit(1);
+		// }
 		data->x_row = --i;
 		free(line);
 		line = get_next_line(data->fd);

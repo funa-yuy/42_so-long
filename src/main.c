@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/12 16:10:43 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 18:17:59 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		// ft_error_general("Check number of arguments.");
-		printf("Check number of arguments.\n");
+		ft_printf("Check number of arguments.\n");
 		exit(1);
 	}
 	init_data(&data, &img);
