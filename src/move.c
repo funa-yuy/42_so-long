@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:49:25 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 04:08:05 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 16:32:45 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
 {
-	printf("Moves => %d times\n", data->count);
+	ft_printf("Moves => %d times\n", data->count);
 	data->count++;
 	//壁だったとき
 	if (data->p[y][x + m] == img->wall_img || (data->p[y][x + m] == img->exit_img && data->coll_con != 0))
@@ -41,7 +41,7 @@ void	move_player_x(t_data *data, t_img *img, int x, int y, int m)
 
 void	move_player_y(t_data *data, t_img *img, int x, int y, int m)
 {
-	printf("Moves => %d times\n", data->count);
+	ft_printf("Moves => %d times\n", data->count);
 	data->count++;
 	//壁だったとき
 	if (data->p[y + m][x] == img->wall_img || (data->p[y + m][x] == img->exit_img && data->coll_con != 0))

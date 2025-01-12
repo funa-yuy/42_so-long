@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 16:15:46 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/12 16:27:37 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /* header*/
 # include "get_next_line.h"
-// # include "ft_printf.h"
+# include "ft_printf.h"
 
 /* mlx library */
 # include <mlx.h>

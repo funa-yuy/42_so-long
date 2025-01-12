@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+         #
+#    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/12 04:11:35 by miyuu            ###   ########.fr        #
+#    Updated: 2025/01/12 16:30:14 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME = so_long
 # Directories
 SRC_DIR = ./src
 LIBFT_DIR = ./lib//libft
-PRINTF_DIR = ./lib/ft_printf
+PRINTF_DIR = ./lib/ft_printf/linux_printf
 GNL_DIR = ./lib/get_next_line
 MLX_DIR	= ./minilibx-linux
 MLX_FLAGS = -I$(MLX_DIR) -L$(MLX_DIR) -lmlx -lXext -lX11
@@ -53,7 +53,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS) $(LIBFT) $(PRINTF) $(MLX)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(GNL_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
