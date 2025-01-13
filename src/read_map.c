@@ -6,12 +6,46 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 18:38:24 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:24:28 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
+int	map_error_cheack(t_data *data, int x, int y, t_img *img)
+{
+	int		i;
+
+	if (data->player.x == 0 || data->player.y == 0 || data->player.x == x -1 || data->player.y == y -1)
+	{
+		ft_printf("The 'P' element is incorrect.\n");
+		return (-1);
+	}
+
+	i = 0;
+	while (i < x)
+	{
+		if (data->p[0][i] != img->wall_img || data->p[y - 1][i] != img->wall_img)
+		{
+			ft_printf("The map is not surrounded by walls.\n");
+			return (-1);
+		}
+		i++;
+	}
+	i = 0;
+	while (i < y)
+	{
+		if (data->p[i][0] != img->wall_img || data->p[i][x-1] != img->wall_img)
+		{
+			ft_printf("The map is not surrounded by walls.\n");
+			return (-1);
+		}
+		i++;
+	}
+
+
+	return (0);
+}
 
 void	read_map(t_data *data, t_img *img, char *filename)
 {
@@ -35,7 +69,7 @@ void	read_map(t_data *data, t_img *img, char *filename)
 	while (line != NULL && line[0] != '\n')
 	{
 		i = 0;
-		while (line[i] != '\0')
+		while (line[i] != '\n')
 		{
 			if (line[i] == '0')
 				data->p[j][i] = img->em_img;
@@ -54,19 +88,20 @@ void	read_map(t_data *data, t_img *img, char *filename)
 				data->p[j][i] = img->p_img;
 				data->player = (t_player){i, j};
 			}
-			// else
-			// {
-			// 	ft_printf("There is an invalid character.\n");
-			// 	exit(1);
-			// }
+			else
+			{
+				ft_printf("There is an invalid character '%c'.\n", line[i]);
+				exit(1);
+			}
 			i++;
 		}
-		// if (j > 0 && data->x_row != --i)
-		// {
-		// 	ft_printf("Error\nNot rectangular\n");
-		// 	exit(1);
-		// }
-		data->x_row = --i;
+		if (j > 0 && data->x_row != i)
+		{
+			ft_printf("Error\nNot rectangular\n");
+			exit(1);
+		}
+		else
+			data->x_row = i;
 		free(line);
 		line = get_next_line(data->fd);
 		j++;

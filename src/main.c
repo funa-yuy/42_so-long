@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/12 18:17:59 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:55:21 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ int	main(int argc, char **argv)
 	read_img(&data, &img);
 //MAPの読み込み
 	read_map(&data, &img, argv[1]);
+	if (map_error_cheack(&data, data.x_row, data.y_column, &img) == -1)
+	{
+		// ft_error_general("Check number of arguments.");
+		exit(1);
+	}
 //ウィンドウ表示
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \
 		data.y_column * IMG_SIZE, "so_long");

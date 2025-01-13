@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/12 16:27:37 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:55:07 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	read_img(t_data *data, t_img *img);
 void	*load_img_in_mlx(void *mlx, char *filename);
 void	read_map(t_data *data, t_img *img, char *filename);
 
+int	map_error_cheack(t_data *data, int x, int y, t_img *img);
 /* set */
 void	disply_img(t_data *data, void *p_img[1000][1000]);
 
