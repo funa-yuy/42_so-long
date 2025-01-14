@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/13 17:55:07 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 02:09:29 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 /* define */
 # define IMG_SIZE	32
+# define MAX_MAP	1000
 
 /* struct */
 typedef struct s_player
@@ -57,7 +58,7 @@ typedef struct s_dat
 	int			coll_con;
 	int			y_column;//列(縦軸)
 	int			x_row;//行(横軸)
-	void		*p[1000][1000];
+	void		*p[MAX_MAP][MAX_MAP];
 	t_player	player;
 }				t_data;
 
@@ -71,7 +72,7 @@ void	read_map(t_data *data, t_img *img, char *filename);
 
 int	map_error_cheack(t_data *data, int x, int y, t_img *img);
 /* set */
-void	disply_img(t_data *data, void *p_img[1000][1000]);
+void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);
 
 /* event */
 int		key_push(int keycode, t_data *data);

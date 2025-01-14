@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/13 18:24:28 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/14 21:07:51 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,34 @@ int	map_error_cheack(t_data *data, int x, int y, t_img *img)
 		}
 		i++;
 	}
-
-
 	return (0);
 }
+
+int	map_error_cheack(t_data *data, int x, int y, t_img *img)
+{
+	int		i;
+
+	char		**s;
+
+	s[y][x] = 0;
+
+	i = 0;
+	while ()
+	{
+		if (p[y][i + 1] == img->wall_img)
+			p[y][i + 1] = s[y][i] + 1;
+		if (p[y][i - 1] == img->wall_img)
+			p[y][i - 1] = s[y][i] + 1;
+		if (p[y + 1][i] == img->wall_img)
+			p[y + 1][i] = s[y][i] + 1;
+		if (p[y - i][i] == img->wall_img)
+			p[y - i][i] = s[y][i] + 1;
+		i++;
+	}
+	return (0);
+}
+
+
 
 void	read_map(t_data *data, t_img *img, char *filename)
 {

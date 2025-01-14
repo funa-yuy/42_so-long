@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/13 17:55:21 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 02:09:48 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	window_close(t_data *data)
 	return (0);
 }
 
-void	disply_img(t_data *data, void *p_img[1000][1000])
+void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP])
 {
 	int		x;
 	int		y;
