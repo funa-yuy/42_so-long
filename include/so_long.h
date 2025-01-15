@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/15 16:26:03 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:06:18 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,21 @@ typedef struct s_dat
 #define PASSED '3' /* 通過したマス */
 
 /* マスの位置情報 */
-typedef struct POS {
+typedef struct pos {
 	int i; /* マスのi座標 */
 	int j; /* マスのj座標 */
-} POS_T;
+}				t_pos;
 
 /* キュー構造体 */
-typedef struct QUEUE {
+typedef struct queue {
 	 /* データの最後尾 */
 	 int tail;
 	 /* データの先頭 */
 	 int head;
 	 /* キューされているデータ */
-	 POS_T *data;
+	 t_pos *data;
 	 int size;
-}			QUEUE_T;
+}			t_queue;
 // bsf----------------------------------------
 
 /* init struct */
