@@ -6,7 +6,7 @@
 #    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/15 16:13:21 by mfunakos         ###   ########.fr        #
+#    Updated: 2025/01/15 22:19:35 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC_FILES = main.c \
 			move.c \
 			read_img.c \
 			read_map.c \
-			map_bfs.c
+			map_bfs.c \
+			map_bfs_utils.c
 
 GNL_FILES = get_next_line.c \
 			get_next_line_utils.c

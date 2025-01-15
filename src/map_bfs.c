@@ -6,13 +6,16 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/15 19:33:04 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:18:31 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool	search_loop()
+// bool	search_loop()
+// {
+
+// }
 /* スタート(i,j)からゴールを探索する関数*/
 bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j)
 {
@@ -35,7 +38,7 @@ bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j)
 		enqueue(queue, &pos, queue_size); /* キューにマスの情報を格納*/
 	}
 
-	retuen (search_loop(queue, collect, maze))
+	// retuen (search_loop(queue, collect, maze))
 	while (true)
 	{
 		int	x_i;

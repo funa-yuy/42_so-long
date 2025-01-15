@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/15 19:20:41 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:20:01 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_pos	*dequeue(t_queue *queue, int queue_size)
 /* (i,j) が通過可能なマスかどうかを確認する関数 */
 bool	check(t_data *data, char **maze, int x_i, int y_j)
 {
-	if (x_i < 0 || x_i >= data->x_row || y_j < 0 || y_j >= data->y_column);
+	if (x_i < 0 || x_i >= data->x_row || y_j < 0 || y_j >= data->y_column)
 		return (false);
 	if (maze[y_j][x_i] == WALL)
 		return (false);
