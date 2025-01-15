@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/14 21:07:51 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/15 16:26:45 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,29 @@ int	map_error_cheack(t_data *data, int x, int y, t_img *img)
 	return (0);
 }
 
-int	map_error_cheack(t_data *data, int x, int y, t_img *img)
-{
-	int		i;
+// int	map_error_cheack(t_data *data, int x, int y, t_img *img)
+// {
+// 	int		i;
 
-	char		**s;
+// 	char		**s;
 
-	s[y][x] = 0;
+// 	s[y][x] = 0;
 
-	i = 0;
-	while ()
-	{
-		if (p[y][i + 1] == img->wall_img)
-			p[y][i + 1] = s[y][i] + 1;
-		if (p[y][i - 1] == img->wall_img)
-			p[y][i - 1] = s[y][i] + 1;
-		if (p[y + 1][i] == img->wall_img)
-			p[y + 1][i] = s[y][i] + 1;
-		if (p[y - i][i] == img->wall_img)
-			p[y - i][i] = s[y][i] + 1;
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while ()
+// 	{
+// 		if (p[y][i + 1] == img->wall_img)
+// 			p[y][i + 1] = s[y][i] + 1;
+// 		if (p[y][i - 1] == img->wall_img)
+// 			p[y][i - 1] = s[y][i] + 1;
+// 		if (p[y + 1][i] == img->wall_img)
+// 			p[y + 1][i] = s[y][i] + 1;
+// 		if (p[y - i][i] == img->wall_img)
+// 			p[y - i][i] = s[y][i] + 1;
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 
 
@@ -76,7 +76,11 @@ void	read_map(t_data *data, t_img *img, char *filename)
 	char	*line;
 	int		i;
 	int		j;
+	char	**bfs;
 
+	bfs = (char **)malloc(sizeof(char *) * MAX_MAP);
+	if (!bfs)
+		exit(1);
 	j = 0;
 	data->fd = open(filename, O_RDONLY);
 	if (data->fd < 0)
@@ -126,11 +130,22 @@ void	read_map(t_data *data, t_img *img, char *filename)
 		}
 		else
 			data->x_row = i;
-		free(line);
+		bfs[j] = line;
+		// free(line);
 		line = get_next_line(data->fd);
 		j++;
 	}
 	data->y_column = j;
-	free(line);
+	// free(line);
 	close(data->fd);
+
+
+	if (bfs_search(data, bfs,  data->x_row, j))
+		free_map(bfs, j);
+	else
+	{
+		ft_printf("ゴールが見つかりません！\n");
+		free_map(bfs, j);
+		exit (1);
+	}
 }
