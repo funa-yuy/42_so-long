@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/15 22:18:17 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:23:12 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	read_map(t_data *data, t_img *img, char *filename);
 bool	bfs_search(t_data *data, char **bfs, int x, int	y);
 void	free_map(char **map, int rows);
 bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j);
-void	initQueue(t_queue *queue, int width, int height);
+void	init_queue(t_queue *queue, int width, int height);
 void	enqueue(t_queue *queue, t_pos *input, int queue_size);
 t_pos	*dequeue(t_queue *queue, int queue_size);
 bool	check(t_data *data, char **maze, int x_i, int y_j);

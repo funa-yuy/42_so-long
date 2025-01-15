@@ -6,16 +6,16 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/15 22:20:01 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:28:03 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
 /* キューを初期化する関数 */
-void	initQueue(t_queue *queue, int width, int height)
+void	init_queue(t_queue *queue, int width, int height)
 {
-	queue->head = 0;	/* キューを空に設定 */
+	queue->head = 0;/* キューを空に設定 */
 	queue->tail = -1;
 	queue->size = (width * height) + 1;/* キューのサイズを設定 */
 	queue->data = (t_pos *)malloc(queue->size * sizeof(t_pos));	/* 必要なメモリを確保 */
@@ -26,7 +26,6 @@ void	initQueue(t_queue *queue, int width, int height)
 	}
 }
 
-/* ENQUEUEする関数 */
 void	enqueue(t_queue *queue, t_pos *input, int queue_size)
 {
 	if((queue->tail + 2) % queue_size == queue->head)	/* キューが満杯なら何もせず関数終了 */
@@ -38,7 +37,6 @@ void	enqueue(t_queue *queue, t_pos *input, int queue_size)
 	queue->tail = (queue->tail + 1) % queue_size;/* データの最後尾を１つ後ろに移動 */
 }
 
-/* DEQUEUEする関数 */
 t_pos	*dequeue(t_queue *queue, int queue_size)
 {
 	t_pos	*ret;

@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/15 16:26:45 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:48:03 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	map_error_cheack(t_data *data, int x, int y, t_img *img)
 		ft_printf("The 'P' element is incorrect.\n");
 		return (-1);
 	}
-
 	i = 0;
 	while (i < x)
 	{
@@ -44,31 +43,6 @@ int	map_error_cheack(t_data *data, int x, int y, t_img *img)
 	}
 	return (0);
 }
-
-// int	map_error_cheack(t_data *data, int x, int y, t_img *img)
-// {
-// 	int		i;
-
-// 	char		**s;
-
-// 	s[y][x] = 0;
-
-// 	i = 0;
-// 	while ()
-// 	{
-// 		if (p[y][i + 1] == img->wall_img)
-// 			p[y][i + 1] = s[y][i] + 1;
-// 		if (p[y][i - 1] == img->wall_img)
-// 			p[y][i - 1] = s[y][i] + 1;
-// 		if (p[y + 1][i] == img->wall_img)
-// 			p[y + 1][i] = s[y][i] + 1;
-// 		if (p[y - i][i] == img->wall_img)
-// 			p[y - i][i] = s[y][i] + 1;
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 
 
 void	read_map(t_data *data, t_img *img, char *filename)
@@ -148,4 +122,17 @@ void	read_map(t_data *data, t_img *img, char *filename)
 		free_map(bfs, j);
 		exit (1);
 	}
+}
+
+void	free_map(char **map, int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i < rows)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }

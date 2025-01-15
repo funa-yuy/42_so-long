@@ -6,44 +6,25 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/15 22:18:31 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:52:59 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-// bool	search_loop()
-// {
-
-// }
-/* スタート(i,j)からゴールを探索する関数*/
-bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j)
+bool	search_loop(t_data *data, t_queue *queue, char **maze, t_pos *pos, int queue_size)
 {
-	t_pos	pos;
+	t_pos	*next;
 	bool	ret;
 	bool	goal;
 	int		collect;
-	int		queue_size;
-	t_pos	*next;
+	int		x_i;
+	int		y_j;
 
 	goal = false;
 	collect = data->coll_con;
-	queue_size = (data->x_row * data->y_column) + 1;
-	/* 次の探索候補としてスタートのマスの情報をキューに格納 */
-	if (check(data, maze, s_i, s_j))
-	{
-		pos.i = s_i; /* スタートのi座標*/
-		pos.j = s_j; /* スタートのj座標*/
-
-		enqueue(queue, &pos, queue_size); /* キューにマスの情報を格納*/
-	}
-
-	// retuen (search_loop(queue, collect, maze))
 	while (true)
 	{
-		int	x_i;
-		int	y_j;
-
 		/* キューから次の探索候補のマスを取得*/
 		next = dequeue(queue, queue_size);
 		if (next == NULL)
@@ -73,62 +54,61 @@ bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j)
 				break ;
 			}
 		}
-
-		/* 探索済みのマスに印をつける */
 		maze[y_j][x_i] = PASSED;
-
 		/* 現在探索中のマスから辿れる次の探索候補をキューに格納 */
 		if (check(data, maze, x_i, y_j - 1))
 		{
-			pos.i = x_i;
-			pos.j = y_j - 1;
+			pos->i = x_i;
+			pos->j = y_j - 1;
 			/* 上方向のマスを探索候補としてキューに格納*/
-			enqueue(queue, &pos, queue_size);
+			enqueue(queue, pos, queue_size);
 		}
-
 		if (check(data, maze, x_i, y_j + 1))
 		{
-			pos.i = x_i;
-			pos.j = y_j + 1;
+			pos->i = x_i;
+			pos->j = y_j + 1;
 			/* 下方向のマスを探索候補としてキューに格納*/
-			enqueue(queue, &pos, queue_size);
+			enqueue(queue, pos, queue_size);
 		}
-
 		if (check(data, maze, x_i - 1, y_j))
 		{
-			pos.i = x_i - 1;
-			pos.j = y_j;
+			pos->i = x_i - 1;
+			pos->j = y_j;
 			/* 左方向のマスを探索候補としてキューに格納*/
-			enqueue(queue, &pos, queue_size);
+			enqueue(queue, pos, queue_size);
 		}
-
 		if (check(data, maze, x_i + 1, y_j))
 		{
-			pos.i = x_i + 1;
-			pos.j = y_j;
+			pos->i = x_i + 1;
+			pos->j = y_j;
 			/* 右方向のマスを探索候補としてキューに格納*/
-			enqueue(queue, &pos, queue_size);
+			enqueue(queue, pos, queue_size);
 		}
 	}
+	return (ret);
+}
+/* スタート(i,j)からゴールを探索する関数*/
+bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j)
+{
+	t_pos	pos;
+	bool	ret;
+	int		queue_size;
+
+	queue_size = (data->x_row * data->y_column) + 1;
+	/* 次の探索候補としてスタートのマスの情報をキューに格納 */
+	if (check(data, maze, s_i, s_j))
+	{
+		pos.i = s_i; /* スタートのi座標*/
+		pos.j = s_j; /* スタートのj座標*/
+		enqueue(queue, &pos, queue_size); /* キューにマスの情報を格納*/
+	}
+	ret = search_loop(data, queue, maze, &pos, queue_size);
 	if (queue->data)
 	{
 		free(queue->data);
 		queue->data = NULL;
 	}
 	return (ret);
-}
-
-void	free_map(char **map, int rows)
-{
-	int	i;
-
-	i = 0;
-	while (i < rows)
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
 }
 
 bool	bfs_search(t_data *data, char **bfs, int x, int	y)
@@ -147,7 +127,7 @@ bool	bfs_search(t_data *data, char **bfs, int x, int	y)
 	}
 		ft_printf("}\n");
 	}
-	initQueue(&queue, x, y);
+	init_queue(&queue, x, y);
 
 	check = search(data, &queue, bfs, data->player.x, data->player.y);
 	if (check)
