@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/15 02:09:48 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 04:20:10 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	window_close(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
-	// free(data->img);
 	exit(0);
 	return (0);
 }
@@ -59,6 +58,11 @@ void	init_data(t_data *data, t_img *img)
 	data->player.y = 0;
 }
 
+int	error_ft_printf(char *msg)
+{
+	ft_printf("%s\n", msg);
+	exit(1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -66,22 +70,14 @@ int	main(int argc, char **argv)
 	t_img	img;
 
 	if (argc != 2)
-	{
-		// ft_error_general("Check number of arguments.");
-		ft_printf("Check number of arguments.\n");
-		exit(1);
-	}
+		error_ft_printf("Check number of arguments.");
 	init_data(&data, &img);
 	data.mlx = mlx_init();
 //画像の読み込み
 	read_img(&data, &img);
 //MAPの読み込み
 	read_map(&data, &img, argv[1]);
-	if (map_error_cheack(&data, data.x_row, data.y_column, &img) == -1)
-	{
-		// ft_error_general("Check number of arguments.");
-		exit(1);
-	}
+	map_error_cheack(&data, data.x_row, data.y_column, &img);
 //ウィンドウ表示
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \
 		data.y_column * IMG_SIZE, "so_long");

@@ -3,59 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   map_bfs_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/15 22:28:03 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 04:14:22 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* キューを初期化する関数 */
-void	init_queue(t_queue *queue, int width, int height)
+void	init_queue(t_queue *que, int width, int height)
 {
-	queue->head = 0;/* キューを空に設定 */
-	queue->tail = -1;
-	queue->size = (width * height) + 1;/* キューのサイズを設定 */
-	queue->data = (t_pos *)malloc(queue->size * sizeof(t_pos));	/* 必要なメモリを確保 */
-	if (!queue->data)
-	{
-		fprintf(stderr, "メモリ確保に失敗しました\n");
+	que->head = 0;
+	que->tail = -1;
+	que->max_size = (width * height) + 1;
+	que->data = (t_pos *)malloc(que->max_size * sizeof(t_pos));
+	if (!que->data)
 		exit(EXIT_FAILURE);
-	}
 }
 
-void	enqueue(t_queue *queue, t_pos *input, int queue_size)
+void	enqueue(t_queue *que, t_pos *input)
 {
-	if((queue->tail + 2) % queue_size == queue->head)	/* キューが満杯なら何もせず関数終了 */
-	{
-		ft_printf("キューが満杯でENQUEUEできません\n");
+	if ((que->tail + 2) % que->max_size == que->head)
 		return ;
-	}
-	queue->data[(queue->tail + 1) % queue_size] = *input;/* データをデータの最後尾の１つ後ろに格納 */
-	queue->tail = (queue->tail + 1) % queue_size;/* データの最後尾を１つ後ろに移動 */
+	que->data[(que->tail + 1) % que->max_size] = *input;
+	que->tail = (que->tail + 1) % que->max_size;
 }
 
-t_pos	*dequeue(t_queue *queue, int queue_size)
+t_pos	*dequeue(t_queue *que)
 {
-	t_pos	*ret;
+	t_pos	*output;
 
-	if((queue->tail + 1) % queue_size == queue->head)	/* キューが空なら何もせずに関数終了 */
+	if ((que->tail + 1) % que->max_size == que->head)
 		return (NULL);
-	ret = &(queue->data[queue->head]);	/* データの先頭からデータを取得 */
-	queue->head = (queue->head + 1) % queue_size;	/* データの先頭を１つ後ろにずらす */
-	return (ret);
+	output = &(que->data[que->head]);
+	que->head = (que->head + 1) % que->max_size;
+	return (output);
 }
 
-/* (i,j) が通過可能なマスかどうかを確認する関数 */
-bool	check(t_data *data, char **maze, int x_i, int y_j)
+bool	check(t_data *data, char **map, int x_i, int y_j)
 {
 	if (x_i < 0 || x_i >= data->x_row || y_j < 0 || y_j >= data->y_column)
 		return (false);
-	if (maze[y_j][x_i] == WALL)
+	if (map[y_j][x_i] == WALL)
 		return (false);
-	if (maze[y_j][x_i] == PASSED)
+	if (map[y_j][x_i] == PASSED)
 		return (false);
 
 	return (true);

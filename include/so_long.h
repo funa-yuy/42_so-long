@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/15 22:23:12 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 04:07:57 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,18 @@ typedef struct s_dat
 #define PASSED '3' /* 通過したマス */
 
 /* マスの位置情報 */
-typedef struct pos {
-	int i; /* マスのi座標 */
-	int j; /* マスのj座標 */
+typedef struct pos
+{
+	int	i;
+	int	j;
 }				t_pos;
 
-/* キュー構造体 */
-typedef struct queue {
-	 /* データの最後尾 */
-	 int tail;
-	 /* データの先頭 */
-	 int head;
-	 /* キューされているデータ */
-	 t_pos *data;
-	 int size;
+typedef struct queue
+{
+	int		tail;
+	int		head;
+	t_pos	*data;
+	int		max_size;
 }			t_queue;
 // bsf----------------------------------------
 
@@ -97,17 +95,17 @@ void	*load_img_in_mlx(void *mlx, char *filename);
 void	read_map(t_data *data, t_img *img, char *filename);
 
 /* bsf cheack */
-bool	bfs_search(t_data *data, char **bfs, int x, int	y);
+bool	can_goal(t_data *data, char **bfs, int x, int y);
 void	free_map(char **map, int rows);
-bool	search(t_data *data, t_queue *queue, char **maze, int s_i, int s_j);
+// bool	bfs(t_data *data, t_queue *queue, char **map, int s_i, int s_j);
 void	init_queue(t_queue *queue, int width, int height);
-void	enqueue(t_queue *queue, t_pos *input, int queue_size);
-t_pos	*dequeue(t_queue *queue, int queue_size);
-bool	check(t_data *data, char **maze, int x_i, int y_j);
+void	enqueue(t_queue *queue, t_pos *input, int que_max);
+t_pos	*dequeue(t_queue *queue, int que_max);
+bool	check(t_data *data, char **map, int x_i, int y_j);
 
 
 
-int	map_error_cheack(t_data *data, int x, int y, t_img *img);
+int		map_error_cheack(t_data *data, int x, int y, t_img *img);
 /* set */
 void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);
 
