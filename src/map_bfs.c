@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 04:07:05 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 05:26:32 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ bool	process_goal_collect(char **map, t_pos *cur, int *collect, bool *goal)
 	y_j = cur->j;
 	if (map[y_j][x_i] == GOAL)
 	{
-		printf("ゴールに到着\n");
 		*goal = true;
 		if (*collect == 0)
 			return (true);
@@ -124,10 +123,6 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 // 	check = bfs(data, &que, bfs, data->player.x, data->player.y);
 // 	return (check);
 // }
-
-
-
-
 
 // bool	can_goal(t_data *data, char **bfs, int x, int	y)
 // {

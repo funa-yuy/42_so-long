@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 04:20:10 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 04:44:32 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP])
 		x = 0;
 		while (x < data->x_row)
 		{
-			mlx_put_image_to_window(data->mlx, data->win, \
-				p_img[y][x], IMG_SIZE * x, IMG_SIZE * y);
+			mlx_put_image_to_window(data->mlx, data->win, p_img[y][x], \
+				IMG_SIZE * x, IMG_SIZE * y);
 			x++;
 		}
 		y++;
@@ -49,7 +49,6 @@ void	init_data(t_data *data, t_img *img)
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = img;
-	data->fd = -1;
 	data->count = 1;
 	data->coll_con = 0;
 	data->y_column = 0;

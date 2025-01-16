@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 04:07:57 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 05:21:19 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 # define IMG_SIZE	32
 # define MAX_MAP	1000
 
+# define EMPTY	'0'
+# define WALL	'1'
+# define GOAL	'E'
+# define COLLECTS	'C'
+# define PASSED	'3'
+
 /* struct */
 typedef struct s_player
 {
@@ -54,7 +60,6 @@ typedef struct s_dat
 	void		*mlx;
 	void		*win;
 	t_img		*img;
-	int			fd;
 	int			count;
 	int			coll_con;
 	int			y_column;//列(縦軸)
@@ -62,13 +67,6 @@ typedef struct s_dat
 	void		*p[MAX_MAP][MAX_MAP];
 	t_player	player;
 }				t_data;
-
-// bsf----------------------------------------
-#define PATH '0' /* 通路 */
-#define WALL '1' /* 壁 */
-#define GOAL 'E' /* ゴール */
-#define COLLECTS 'C' /* ゴール */
-#define PASSED '3' /* 通過したマス */
 
 /* マスの位置情報 */
 typedef struct pos
@@ -84,7 +82,6 @@ typedef struct queue
 	t_pos	*data;
 	int		max_size;
 }			t_queue;
-// bsf----------------------------------------
 
 /* init struct */
 void	init_data(t_data *data, t_img *img);

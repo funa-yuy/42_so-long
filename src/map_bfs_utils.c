@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 04:14:22 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 05:25:55 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ bool	check(t_data *data, char **map, int x_i, int y_j)
 		return (false);
 	if (map[y_j][x_i] == PASSED)
 		return (false);
-
 	return (true);
 }
