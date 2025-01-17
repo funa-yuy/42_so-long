@@ -6,12 +6,12 @@
 #    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/17 20:24:33 by mfunakos         ###   ########.fr        #
+#    Updated: 2025/01/17 22:01:10 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror # -fsanitize=address -g
 NAME = so_long
 
 # Directories
