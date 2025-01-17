@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 05:22:44 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 16:15:29 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	map_error_cheack(t_data *data, int x, int y, t_img *img)
 	s_x = data->player.x ;
 	s_y = data->player.y;
 	if (s_x == 0 || s_y == 0 || s_x == x -1 || s_y == y -1)
-		return (error_ft_printf("The 'P' element is incorrect.\n"));
+		return (error_ft_printf("The 'P' element is incorrect."));
 	i = 0;
 	while (i < x)
 	{
@@ -54,24 +54,24 @@ void	free_map(char **map, int rows)
 	free(map);
 }
 
-int	set_line(t_data *data, t_img *img, int i, int j)
+int	set_line(t_data *data, char *line, int i, int j)
 {
 	while (line[i] != '\n')
 	{
 		if (line[i] == EMPTY)
-			data->p[j][i] = img->em_img;
+			data->p[j][i] = data->img->em_img;
 		else if (line[i] == WALL)
-			data->p[j][i] = img->wall_img;
+			data->p[j][i] = data->img->wall_img;
 		else if (line[i] == COLLECTS)
 		{
-			data->p[j][i] = img->col_img;
+			data->p[j][i] = data->img->col_img;
 			data->coll_con++;
 		}
 		else if (line[i] == GOAL)
-			data->p[j][i] = img->exit_img;
+			data->p[j][i] = data->img->exit_img;
 		else if (line[i] == 'P')
 		{
-			data->p[j][i] = img->p_img;
+			data->p[j][i] = data->img->p_img;
 			data->player = (t_player){i, j};
 		}
 		else
@@ -81,7 +81,7 @@ int	set_line(t_data *data, t_img *img, int i, int j)
 	return (i);
 }
 
-void	validate_line(t_data *data, t_img *img, char **map, size_t fd)
+void	validate_line(t_data *data, char **map, size_t fd)
 {
 	char	*line;
 	int		i;
@@ -93,7 +93,7 @@ void	validate_line(t_data *data, t_img *img, char **map, size_t fd)
 	j = 0;
 	while (line != NULL && line[0] != '\n')
 	{
-		i = set_line(data, img, 0, j);
+		i = set_line(data, line, 0, j);
 		if (i < 0)
 		{
 			free_map(map, j);
@@ -107,11 +107,13 @@ void	validate_line(t_data *data, t_img *img, char **map, size_t fd)
 		j++;
 	}
 	data->y_column = j;
+	ft_printf("First collect %d\n", data->coll_con);
 }
 
-void	read_map(t_data *data, t_img *img, char *filename)
+void	read_map(t_data *data, char *filename)
 {
 	char	**map;
+	size_t	fd;
 
 	map = (char **)malloc(sizeof(char *) * MAX_MAP);
 	if (!map)
@@ -119,7 +121,7 @@ void	read_map(t_data *data, t_img *img, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		error_ft_printf("No such file or directory.");
-	validate_line(data, img, map, fd);
+	validate_line(data, map, fd);
 	close(fd);
 	if (can_goal(data, map, data->x_row, data->y_column))
 		free_map(map, data->y_column);

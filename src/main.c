@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 04:44:32 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 16:17:44 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	init_data(t_data *data, t_img *img)
 	img->col_img = NULL;
 	img->exit_img = NULL;
 	img->p_img = NULL;
-
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = img;
@@ -72,15 +71,11 @@ int	main(int argc, char **argv)
 		error_ft_printf("Check number of arguments.");
 	init_data(&data, &img);
 	data.mlx = mlx_init();
-//画像の読み込み
 	read_img(&data, &img);
-//MAPの読み込み
-	read_map(&data, &img, argv[1]);
+	read_map(&data, argv[1]);
 	map_error_cheack(&data, data.x_row, data.y_column, &img);
-//ウィンドウ表示
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \
 		data.y_column * IMG_SIZE, "so_long");
-//MAPの表示
 	disply_img(&data, data.p);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, window_close, &data);
 	mlx_key_hook(data.win, key_push, &data);

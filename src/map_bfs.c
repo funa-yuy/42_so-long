@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 05:26:32 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 15:58:36 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ bool	bfs_search(t_data *data, t_queue *que, char **map, t_pos *pos)
 			return (true);
 		map[cur->j][cur->i] = PASSED;
 		if (check(data, map, cur->i, cur->j - 1))
-			next_pos(data, que, cur->i, cur->j - 1);
+			next_pos(que, pos, cur->i, cur->j - 1);
 		if (check(data, map, cur->i, cur->j + 1))
-			next_pos(data, que, cur->i, cur->j + 1);
+			next_pos(que, pos, cur->i, cur->j + 1);
 		if (check(data, map, cur->i - 1, cur->j))
-			next_pos(data, que, cur->i - 1, cur->j);
+			next_pos(que, pos, cur->i - 1, cur->j);
 		if (check(data, map, cur->i + 1, cur->j))
-			next_pos(data, que, cur->i + 1, cur->j);
+			next_pos(que, pos, cur->i + 1, cur->j);
 	}
 	return (false);
 }
