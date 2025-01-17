@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 19:58:27 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:38:48 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,71 +91,3 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 	}
 	return (ret);
 }
-
-// bool	bfs(t_data *data, t_queue *que, char **map, int s_i, int s_j)
-// {
-// 	t_pos	pos;
-// 	bool	ret;
-
-// 	if (check(data, map, s_i, s_j))
-// 	{
-// 		pos.i = s_i;
-// 		pos.j = s_j;
-// 		enqueue(que, &pos);
-// 	}
-// 	ret = bfs_search(data, que, map, &pos);
-// 	if (que->data)
-// 	{
-// 		free(que->data);
-// 		que->data = NULL;
-// 	}
-// 	return (ret);
-// }
-
-// bool	can_goal(t_data *data, char **bfs, int x, int y)
-// {
-// 	bool	check;
-// 	t_queue	que;
-
-// 	check = false;
-// 	init_queue(&que, x, y);
-
-// 	check = bfs(data, &que, bfs, data->player.i, data->player.j);
-// 	return (check);
-// }
-
-// bool	can_goal(t_data *data, char **bfs, int x, int	y)
-// {
-// 	(void)	data;
-// 	bool	check;
-// 	t_queue	que;
-
-// 	check = false;
-// 	for (int j=0; j < y; j++)
-// 	{
-// 		ft_printf("%d行目 = {", j);
-// 		for (int i=0; i < x; i++)
-// 	{
-// 		ft_printf("%c, ", bfs[j][i]);
-// 	}
-// 		ft_printf("}\n");
-// 	}
-// 	init_queue(&que, x, y);
-
-// 	check = bfs(data, &que, bfs, data->player.i, data->player.j);
-// 	if (check)
-// 		ft_printf("ゴールが見つかりました！\n");
-// 	else
-// 		ft_printf("ゴールが見つかりません！\n");
-
-// 	for (int j=0; j < y; j++)
-// 	{
-// 		printf("%d行目 = {", j);
-// 		for (int i=0; i < x; i++)
-// 	{
-// 		printf("%c, ", bfs[j][i]);
-// 	}
-// 		printf("}\n");
-// 	}
-// 	return (check);
-// }

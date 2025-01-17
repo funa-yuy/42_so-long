@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_bfs_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 19:21:35 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:37:27 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_queue(t_queue *que, int width, int height)
 	que->max_size = (width * height) + 1;
 	que->data = (t_pos *)malloc(que->max_size * sizeof(t_pos));
 	if (!que->data)
-		exit(EXIT_FAILURE);
+		exit_perror("[MALLOC ERROR]");
 }
 
 void	enqueue(t_queue *que, t_pos *input)
