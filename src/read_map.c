@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 16:15:29 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:50:27 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ void	read_map(t_data *data, char *filename)
 	char	**map;
 	size_t	fd;
 
-	map = (char **)malloc(sizeof(char *) * MAX_MAP);
-	if (!map)
-		exit(1);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		error_ft_printf("No such file or directory.");
+	map = (char **)malloc(sizeof(char *) * MAX_MAP);
+	if (!map)
+		exit(1);
 	validate_line(data, map, fd);
 	close(fd);
 	if (can_goal(data, map, data->x_row, data->y_column))
