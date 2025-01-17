@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 20:21:55 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:26:18 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@
 # define PASSED	'3'
 
 /* struct */
-// typedef struct s_player
-// {
-// 	int			x;
-// 	int			y;
-// }			t_player;
-
-/* マスの位置情報 */
 typedef struct pos
 {
 	int	i;
@@ -95,7 +88,6 @@ void	read_map(t_data *data, char *filename);
 /* bsf cheack */
 bool	can_goal(t_data *data, char **bfs, int x, int y);
 void	free_map(char **map, int rows);
-// bool	bfs(t_data *data, t_queue *queue, char **map, int s_i, int s_j);
 void	init_queue(t_queue *queue, int width, int height);
 void	enqueue(t_queue *que, t_pos *input);
 t_pos	*dequeue(t_queue *que);
@@ -113,7 +105,7 @@ void	move_player_y(t_data *data, int x, int y, int m);
 void	move_player_x(t_data *data, int x, int y, int m);
 bool	can_move(t_data *data, t_img *img, void *p_next);
 
-// utils
+/* utils */
 int		exit_ft_printf(char *msg);
 int		exit_perror(char *msg);
 #endif

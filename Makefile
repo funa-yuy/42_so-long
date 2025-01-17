@@ -6,11 +6,9 @@
 #    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/17 20:21:37 by mfunakos         ###   ########.fr        #
+#    Updated: 2025/01/17 20:24:33 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# cc -Wall -Wextra -Werror -fsanitize=address -g -Iminilibx-linux -Ilib/get_next_line/ main.c -Lminilibx-linux -lmlx -lXext -lX11  lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
