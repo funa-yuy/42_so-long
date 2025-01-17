@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 16:24:49 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:21:55 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,18 @@
 # define PASSED	'3'
 
 /* struct */
-typedef struct s_player
+// typedef struct s_player
+// {
+// 	int			x;
+// 	int			y;
+// }			t_player;
+
+/* マスの位置情報 */
+typedef struct pos
 {
-	int			x;
-	int			y;
-}			t_player;
+	int	i;
+	int	j;
+}				t_pos;
 
 typedef struct s_img
 {
@@ -65,15 +72,9 @@ typedef struct s_dat
 	int			y_column;
 	int			x_row;
 	void		*p[MAX_MAP][MAX_MAP];
-	t_player	player;
+	t_pos		player;
+	t_pos		exit;
 }				t_data;
-
-/* マスの位置情報 */
-typedef struct pos
-{
-	int	i;
-	int	j;
-}				t_pos;
 
 typedef struct queue
 {
@@ -100,7 +101,7 @@ void	enqueue(t_queue *que, t_pos *input);
 t_pos	*dequeue(t_queue *que);
 bool	check(t_data *data, char **map, int x_i, int y_j);
 
-int		map_error_cheack(t_data *data, int x, int y, t_img *img);
+void	map_error_cheack(t_data *data, int x, int y, t_img *img);
 
 /* window */
 void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);
@@ -113,5 +114,6 @@ void	move_player_x(t_data *data, int x, int y, int m);
 bool	can_move(t_data *data, t_img *img, void *p_next);
 
 // utils
-int		error_ft_printf(char *msg);
+int		exit_ft_printf(char *msg);
+int		exit_perror(char *msg);
 #endif

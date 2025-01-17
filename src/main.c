@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 16:17:44 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:21:08 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,8 @@ void	init_data(t_data *data, t_img *img)
 	data->coll_con = 0;
 	data->y_column = 0;
 	data->x_row = 0;
-	data->player.x = 0;
-	data->player.y = 0;
-}
-
-int	error_ft_printf(char *msg)
-{
-	ft_printf("%s\n", msg);
-	exit(1);
+	data->player.i = 0;
+	data->player.j = 0;
 }
 
 int	main(int argc, char **argv)
@@ -68,7 +62,7 @@ int	main(int argc, char **argv)
 	t_img	img;
 
 	if (argc != 2)
-		error_ft_printf("Check number of arguments.");
+		exit_ft_printf("Check number of arguments.");
 	init_data(&data, &img);
 	data.mlx = mlx_init();
 	read_img(&data, &img);

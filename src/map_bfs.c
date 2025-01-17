@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 15:58:36 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:58:27 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 
 	ret = false;
 	init_queue(&que, x, y);
-	if (check(data, map, data->player.x, data->player.y))
+	if (check(data, map, data->player.i, data->player.j))
 	{
-		pos.i = data->player.x;
-		pos.j = data->player.y;
+		pos.i = data->player.i;
+		pos.j = data->player.j;
 		enqueue(&que, &pos);
 	}
 	ret = bfs_search(data, &que, map, &pos);
@@ -120,7 +120,7 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 // 	check = false;
 // 	init_queue(&que, x, y);
 
-// 	check = bfs(data, &que, bfs, data->player.x, data->player.y);
+// 	check = bfs(data, &que, bfs, data->player.i, data->player.j);
 // 	return (check);
 // }
 
@@ -142,7 +142,7 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 // 	}
 // 	init_queue(&que, x, y);
 
-// 	check = bfs(data, &que, bfs, data->player.x, data->player.y);
+// 	check = bfs(data, &que, bfs, data->player.i, data->player.j);
 // 	if (check)
 // 		ft_printf("ゴールが見つかりました！\n");
 // 	else

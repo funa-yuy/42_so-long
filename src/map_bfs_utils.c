@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 16:39:29 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:21:35 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ bool	check(t_data *data, char **map, int x_i, int y_j)
 		return (false);
 	if (map[y_j][x_i] == WALL)
 		return (false);
-	// if (map[y_j][x_i] == GOAL)
-	// 	return (false);
 	if (map[y_j][x_i] == PASSED)
 		return (false);
 	return (true);

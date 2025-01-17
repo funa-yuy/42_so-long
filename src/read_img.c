@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:54:51 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 04:58:33 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/17 18:46:22 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	*load_img_in_mlx(void *mlx, char *filename)
 	size = IMG_SIZE;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		error_ft_printf("No exist image file.");
+		exit_ft_printf("No exist image file.");
 	close(fd);
 	img = mlx_xpm_file_to_image(mlx, filename, &size, &size);
 	if (!img)
-		error_ft_printf("Failed create image file.");
+		exit_ft_printf("Failed create image file.");
 	return (img);
 }
 
