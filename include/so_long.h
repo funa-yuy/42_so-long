@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 04:19:25 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 04:57:45 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_dat
 	int			y_column;
 	int			x_row;
 	void		*p[MAX_MAP][MAX_MAP];
+	char		**map;
 	t_pos		player;
 	t_pos		exit;
 }				t_data;
@@ -87,14 +88,21 @@ void	read_map(t_data *data, char *filename);
 
 /* bsf cheack */
 bool	can_goal(t_data *data, char **bfs, int x, int y);
-void	free_map(char **map, int rows);
+bool	bfs_search(t_data *data, t_queue *que, char **map);
+void	enqueue_next_pos(t_queue *que, t_pos *cur);
+bool	did_search(char **map, t_pos *cur, int *collect, bool *goal);
+
+bool	is_passable(t_data *data, char **map, int x_i, int y_j);
 void	init_queue(t_queue *queue, int width, int height);
 void	enqueue(t_queue *que, int i, int j);
 t_pos	*dequeue(t_queue *que);
-bool	is_passable(t_data *data, char **map, int x_i, int y_j);
+void	free_map(char **map, int rows);
 void	free_queue(t_queue *que);
 
-void	validate_map(t_data *data, t_img *img, int width, int height);
+/* validate_map */
+void	free_map(char **map, int rows);
+bool	is_surrounded_walls(void **p, t_img *img, int width, int height);
+void	validate_map(t_data *data, int width, int height);
 
 /* window */
 void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);
@@ -107,6 +115,7 @@ void	move_player_x(t_data *data, int x, int y, int m);
 bool	can_move(t_data *data, t_img *img, void *p_next);
 
 /* utils */
-int		exit_ft_printf(char *msg);
-int		exit_perror(char *msg);
+int		exit_ft_printf(char *msg, t_data *data);
+int		exit_perror(char *msg, t_data *data);
+void	free_img(t_data *data, t_img *img);
 #endif

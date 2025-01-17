@@ -6,12 +6,11 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/18 03:27:52 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 04:54:40 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
 
 // TODO: add cleanup
 // void	free_double_pointer(t_data *data)
@@ -26,6 +25,7 @@
 // 	free(data->map->map);
 // 	free(data->img);
 // }
+
 // void	handle_error(t_data *data, char *str, int num)
 // {
 // 	if (num)
@@ -44,10 +44,11 @@
 // 	free_double_pointer(data);
 // 	exit(EXIT_SUCCESS);
 // }
+	// free(data->img);
 int	window_close(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
-	free(data->img);
+	free_img(data, data->img);
 	exit(0);
 	return (0);
 }
@@ -77,11 +78,11 @@ int	main(int argc, char **argv)
 	t_img	img;
 	// dataの読み込み
 	if (argc != 2)
-		exit_ft_printf("Check number of arguments.");
+		exit_ft_printf("Check number of arguments.", &data);
 	fill_data(&data, &img, argv[1]);
 
 	// mapのvalidate
-	validate_map(&data, &img, data.x_row, data.y_column);
+	validate_map(&data, data.x_row, data.y_column);
 
 	// ゲーム画面の表示
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \

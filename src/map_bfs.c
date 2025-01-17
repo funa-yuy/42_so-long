@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/18 04:19:00 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 04:59:22 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	enqueue_next_pos(t_queue *que, t_pos *cur)
 		enqueue(que, cur->i + 1, cur->j);
 }
 
-
 bool	bfs_search(t_data *data, t_queue *que, char **map)
 {
 	t_pos	*cur;
@@ -87,19 +86,12 @@ bool	bfs_search(t_data *data, t_queue *que, char **map)
 	{
 		cur = dequeue(que);
 		if (cur == NULL)
-		{
-
 			return (false);
-		}
 		if (did_search(map, cur, &collect, &goal))
-		{
-
 			return (true);
-		}
 		map[cur->j][cur->i] = PASSED;
 		enqueue_next_pos(que, cur);
 	}
-
 	return (false);
 }
 
@@ -110,7 +102,7 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 	t_pos	pos;
 
 	ret = false;
-	init_queue(&que, x, y);
+	init_queue(data, &que, x, y);
 	if (is_passable(data, map, data->player.i, data->player.j))
 	{
 		pos.i = data->player.i;

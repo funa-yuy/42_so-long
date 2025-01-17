@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
+#    By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/17 22:01:10 by mfunakos         ###   ########.fr        #
+#    Updated: 2025/01/18 04:52:39 by miyuu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,14 @@ MLX_FLAGS = -I$(MLX_DIR) -L$(MLX_DIR) -lmlx -lXext -lX11
 
 # Source files
 SRC_FILES = main.c \
+			init_data.c \
 			move.c \
 			read_img.c \
 			read_map.c \
 			map_bfs.c \
 			map_bfs_utils.c \
-			error_exit.c
+			error_exit.c \
+			validate_map.c
 
 GNL_FILES = get_next_line.c \
 			get_next_line_utils.c

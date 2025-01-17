@@ -6,7 +6,7 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/18 04:19:08 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 04:31:00 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	free_queue(t_queue *que)
 	}
 }
 
-void	init_queue(t_queue *que, int width, int height)
+void	init_queue(t_data *data, t_queue *que, int width, int height)
 {
 	que->head = 0;
 	que->tail = -1;
 	que->max_size = (width * height) + 1;
 	que->wait_que = (t_pos *)malloc(que->max_size * sizeof(t_pos));
 	if (!que->wait_que)
-		exit_perror("[MALLOC ERROR]");
+		exit_perror("[MALLOC ERROR]", data);
 }
 
 // void	enqueue(t_queue *que, t_pos *input)

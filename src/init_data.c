@@ -6,13 +6,13 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 03:07:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 03:10:24 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 04:37:52 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, t_img *img)
 {
 	data->mlx = NULL;
 	data->win = NULL;
@@ -38,11 +38,11 @@ void	init_img(t_img *img)
 
 void	fill_data(t_data *data, t_img *img, char *filename)
 {
-	init_data(data);
+	init_data(data, img);
 	init_img(img);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		exit_ft_printf("mlx init failed.");
+		exit_ft_printf("mlx init failed.", data);
 	fill_img(&data, &img);
 	fill_map(&data, filename);
 }
