@@ -6,38 +6,54 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 20:37:35 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 03:29:50 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	map_error_cheack(t_data *data, int x, int y, t_img *img)
+bool	is_surrounded_walls(void **p, t_img *img, int width, int height)
 {
 	int		i;
-	int		s_x;
-	int		s_y;
+
+	i = 0;
+	while (i < width)
+	{
+		if (p[0][i] != img->wall_img || p[height - 1][i] != img->wall_img)
+			return (false);
+		i++;
+	}
+	i = 0;
+	while (i < height)
+	{
+		if (p[i][0] != img->wall_img || p[i][width - 1] != img->wall_img)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+void	validate_map(t_data *data, t_img *img, int width, int height)
+{
+	int	s_x;
+	int	s_y;
 
 	s_x = data->player.i;
 	s_y = data->player.j;
-	if (s_x == 0 || s_y == 0 || s_x == x -1 || s_y == y -1)
+	if (s_x == 0 || s_y == 0 || s_x == width - 1 || s_y == height - 1)
 		exit_ft_printf("[MAP ERROR]The 'P' element is incorrect.");
-	i = 0;
-	while (i < x)
+
+	if (!(is_surrounded_walls(data->p, data->img, width, height)))
+		exit_ft_printf("[MAP ERROR]The map is not surrounded by walls.");
+
+	if (can_goal(data, map, data->x_row, data->y_column))
+		free_map(map, data->y_column);
+	else
 	{
-		if (data->p[0][i] != img->wall_img || \
-			data->p[y - 1][i] != img->wall_img)
-			exit_ft_printf("[MAP ERROR]The map is not surrounded by walls.");
-		i++;
+		free_map(map, data->y_column);
+		exit_ft_printf("[MAP ERROR] Impossible to reach goal.");
 	}
-	i = 0;
-	while (i < y)
-	{
-		if (data->p[i][0] != img->wall_img || \
-			data->p[i][x - 1] != img->wall_img)
-			exit_ft_printf("[MAP ERROR]The map is not surrounded by walls.");
-		i++;
-	}
+
 }
 
 void	free_map(char **map, int rows)
@@ -106,7 +122,7 @@ void	validate_line(t_data *data, char **map, int fd)
 	data->y_column = j;
 }
 
-void	read_map(t_data *data, char *filename)
+void	fill_map(t_data *data, char *filename)
 {
 	char	**map;
 	int		fd;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 22:57:55 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/18 03:27:52 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,40 @@
 
 
 // TODO: add cleanup
+// void	free_double_pointer(t_data *data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (data->map->map[i])
+// 		i++;
+// 	while (i >= 0)
+// 		free(data->map->map[i--]);
+// 	free(data->map->map);
+// 	free(data->img);
+// }
+// void	handle_error(t_data *data, char *str, int num)
+// {
+// 	if (num)
+// 		free_double_pointer(data);
+// 	ft_putstr_fd(str, 2);
+// 	exit(EXIT_FAILURE);
+// }
+
+// int	ft_exit(t_data *data)
+// {
+// 	mlx_destroy_window(data->mlx, data->win);
+// 	printf("--------------------------------------------------\n");
+// 	printf("|              You gave up :(                    |\n");
+// 	printf("|   Is the game hard for you? Try again......    |\n");
+// 	printf("--------------------------------------------------\n");
+// 	free_double_pointer(data);
+// 	exit(EXIT_SUCCESS);
+// }
 int	window_close(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
+	free(data->img);
 	exit(0);
 	return (0);
 }
@@ -40,24 +71,6 @@ void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP])
 	}
 }
 
-void	init_data(t_data *data, t_img *img)
-{
-	img->em_img = NULL;
-	img->wall_img = NULL;
-	img->col_img = NULL;
-	img->exit_img = NULL;
-	img->p_img = NULL;
-	data->mlx = NULL;
-	data->win = NULL;
-	data->img = img;
-	data->count = 1;
-	data->coll_con = 0;
-	data->y_column = 0;
-	data->x_row = 0;
-	data->player.i = 0;
-	data->player.j = 0;
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -65,13 +78,10 @@ int	main(int argc, char **argv)
 	// dataの読み込み
 	if (argc != 2)
 		exit_ft_printf("Check number of arguments.");
-	init_data(&data, &img);
-	data.mlx = mlx_init();
-	read_img(&data, &img);
-	read_map(&data, argv[1]);
+	fill_data(&data, &img, argv[1]);
 
 	// mapのvalidate
-	map_error_cheack(&data, data.x_row, data.y_column, &img);
+	validate_map(&data, &img, data.x_row, data.y_column);
 
 	// ゲーム画面の表示
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \
@@ -140,7 +150,7 @@ int	main(int argc, char **argv)
 	// マップの読み込みとゴールが可能かのチェック // TODO: separate this func
 	read_map(&data, argv[1]);
 	// マップのP、E,Cの数が不正かのチェック
-	map_error_cheack(&data, data.x_row, data.y_column, &img);
+	validate_map(&data, data.x_row, data.y_column, &img);
 
 	// window描画
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \

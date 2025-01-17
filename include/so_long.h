@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/17 20:26:18 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/18 04:19:25 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 /* define */
 # define IMG_SIZE	32
-# define MAX_MAP	1000
+# define MAX_MAP	100
 
 # define EMPTY	'0'
 # define WALL	'1'
@@ -73,7 +73,7 @@ typedef struct queue
 {
 	int		tail;
 	int		head;
-	t_pos	*data;
+	t_pos	*wait_que;
 	int		max_size;
 }			t_queue;
 
@@ -89,11 +89,12 @@ void	read_map(t_data *data, char *filename);
 bool	can_goal(t_data *data, char **bfs, int x, int y);
 void	free_map(char **map, int rows);
 void	init_queue(t_queue *queue, int width, int height);
-void	enqueue(t_queue *que, t_pos *input);
+void	enqueue(t_queue *que, int i, int j);
 t_pos	*dequeue(t_queue *que);
-bool	check(t_data *data, char **map, int x_i, int y_j);
+bool	is_passable(t_data *data, char **map, int x_i, int y_j);
+void	free_queue(t_queue *que);
 
-void	map_error_cheack(t_data *data, int x, int y, t_img *img);
+void	validate_map(t_data *data, t_img *img, int width, int height);
 
 /* window */
 void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);

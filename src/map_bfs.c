@@ -6,13 +6,13 @@
 /*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/17 20:38:48 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 04:19:00 by miyuu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool	process_goal_collect(char **map, t_pos *cur, int *collect, bool *goal)
+bool	did_search(char **map, t_pos *cur, int *collect, bool *goal)
 {
 	int	x_i;
 	int	y_j;
@@ -34,14 +34,48 @@ bool	process_goal_collect(char **map, t_pos *cur, int *collect, bool *goal)
 	return (false);
 }
 
-void	next_pos(t_queue *que, t_pos *pos, int x, int y)
+// void	enqueue_next_pos(t_queue *que, t_pos *pos, t_pos *cur)
+// {
+// 	if (is_passable(data, map, cur->i, cur->j - 1))
+// 	{
+// 		pos->i = cur->i;
+// 		pos->j = cur->j - 1;
+// 		enqueue(que, pos);
+// 	}
+// 	if (is_passable(data, map, cur->i, cur->j + 1))
+// 	{
+// 		pos->i = cur->i;
+// 		pos->j = cur->j + 1;
+// 		enqueue(que, pos);
+// 	}
+// 	if (is_passable(data, map, cur->i - 1, cur->j))
+// 	{
+// 		pos->i = cur->i - 1;
+// 		pos->j = cur->j;
+// 		enqueue(que, pos);
+// 	}
+// 	if (is_passable(data, map, cur->i + 1, cur->j))
+// 	{
+// 		pos->i = cur->i + 1;
+// 		pos->j = cur->j;
+// 		enqueue(que, pos);
+// 	}
+// }
+
+void	enqueue_next_pos(t_queue *que, t_pos *cur)
 {
-	pos->i = x;
-	pos->j = y;
-	enqueue(que, pos);
+	if (is_passable(data, map, cur->i, cur->j - 1))
+		enqueue(que, cur->i, cur - 1);
+	if (is_passable(data, map, cur->i, cur->j + 1))
+		enqueue(que, cur->i, cur->j + 1);
+	if (is_passable(data, map, cur->i - 1, cur->j))
+		enqueue(que, cur->i - 1, cur->j);
+	if (is_passable(data, map, cur->i + 1, cur->j))
+		enqueue(que, cur->i + 1, cur->j);
 }
 
-bool	bfs_search(t_data *data, t_queue *que, char **map, t_pos *pos)
+
+bool	bfs_search(t_data *data, t_queue *que, char **map)
 {
 	t_pos	*cur;
 	bool	goal;
@@ -53,19 +87,19 @@ bool	bfs_search(t_data *data, t_queue *que, char **map, t_pos *pos)
 	{
 		cur = dequeue(que);
 		if (cur == NULL)
+		{
+
 			return (false);
-		if (process_goal_collect(map, cur, &collect, &goal))
+		}
+		if (did_search(map, cur, &collect, &goal))
+		{
+
 			return (true);
+		}
 		map[cur->j][cur->i] = PASSED;
-		if (check(data, map, cur->i, cur->j - 1))
-			next_pos(que, pos, cur->i, cur->j - 1);
-		if (check(data, map, cur->i, cur->j + 1))
-			next_pos(que, pos, cur->i, cur->j + 1);
-		if (check(data, map, cur->i - 1, cur->j))
-			next_pos(que, pos, cur->i - 1, cur->j);
-		if (check(data, map, cur->i + 1, cur->j))
-			next_pos(que, pos, cur->i + 1, cur->j);
+		enqueue_next_pos(que, cur);
 	}
+
 	return (false);
 }
 
@@ -77,17 +111,14 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 
 	ret = false;
 	init_queue(&que, x, y);
-	if (check(data, map, data->player.i, data->player.j))
+	if (is_passable(data, map, data->player.i, data->player.j))
 	{
 		pos.i = data->player.i;
 		pos.j = data->player.j;
-		enqueue(&que, &pos);
+		enqueue(que, pos, data->player.i, data->player.j);
+		// enqueue(&que, &pos);
 	}
-	ret = bfs_search(data, &que, map, &pos);
-	if (que.data)
-	{
-		free(que.data);
-		que.data = NULL;
-	}
+	ret = bfs_search(data, &que, map);
+	free_queue(&que);
 	return (ret);
 }
