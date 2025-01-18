@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 04:51:53 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 15:39:05 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ void	read_map_line(t_data *data, char **map, int fd)
 
 void	fill_map(t_data *data, char *filename)
 {
-	char	**map;
+	// char	**map;
 	int		fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		exit_perror("[FD ERROR]", data);
-	data->map = map;
+	// data->map = map;
 	data->map = (char **)malloc(sizeof(char *) * MAX_MAP);
 	if (!data->map)
 		exit_perror("[MALLOC ERROR]", data);

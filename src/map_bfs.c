@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/18 04:59:22 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 15:43:13 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ bool	did_search(char **map, t_pos *cur, int *collect, bool *goal)
 // 	}
 // }
 
-void	enqueue_next_pos(t_queue *que, t_pos *cur)
+void	enqueue_next_pos(t_data *data, t_queue *que, t_pos *cur)
 {
-	if (is_passable(data, map, cur->i, cur->j - 1))
-		enqueue(que, cur->i, cur - 1);
-	if (is_passable(data, map, cur->i, cur->j + 1))
+	if (is_passable(data, data->map, cur->i, cur->j - 1))
+		enqueue(que, cur->i, cur->j - 1);
+	if (is_passable(data, data->map, cur->i, cur->j + 1))
 		enqueue(que, cur->i, cur->j + 1);
-	if (is_passable(data, map, cur->i - 1, cur->j))
+	if (is_passable(data, data->map, cur->i - 1, cur->j))
 		enqueue(que, cur->i - 1, cur->j);
-	if (is_passable(data, map, cur->i + 1, cur->j))
+	if (is_passable(data, data->map, cur->i + 1, cur->j))
 		enqueue(que, cur->i + 1, cur->j);
 }
 
@@ -90,7 +90,7 @@ bool	bfs_search(t_data *data, t_queue *que, char **map)
 		if (did_search(map, cur, &collect, &goal))
 			return (true);
 		map[cur->j][cur->i] = PASSED;
-		enqueue_next_pos(que, cur);
+		enqueue_next_pos(data, que, cur);
 	}
 	return (false);
 }
@@ -107,7 +107,7 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 	{
 		pos.i = data->player.i;
 		pos.j = data->player.j;
-		enqueue(que, pos, data->player.i, data->player.j);
+		enqueue(&que, data->player.i, data->player.j);
 		// enqueue(&que, &pos);
 	}
 	ret = bfs_search(data, &que, map);

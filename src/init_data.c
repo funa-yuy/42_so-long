@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 03:07:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 04:37:52 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 16:12:05 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_data(t_data *data, t_img *img)
 	data->coll_con = 0;
 	data->y_column = 0;
 	data->x_row = 0;
+	data->map = NULL;
 	data->player.i = 0;
 	data->player.j = 0;
 	data->exit.i = 0;
@@ -38,11 +39,11 @@ void	init_img(t_img *img)
 
 void	fill_data(t_data *data, t_img *img, char *filename)
 {
-	init_data(data, img);
-	init_img(img);
-	data.mlx = mlx_init();
-	if (!data.mlx)
+	// init_data(data, img);
+	// init_img(img);
+	data->mlx = mlx_init();
+	if (!data->mlx)
 		exit_ft_printf("mlx init failed.", data);
-	fill_img(&data, &img);
-	fill_map(&data, filename);
+	fill_img(data, img);
+	fill_map(data, filename);
 }

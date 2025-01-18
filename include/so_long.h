@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 04:57:45 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 16:13:24 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,29 @@ typedef struct queue
 }			t_queue;
 
 /* init struct */
+void	init_img(t_img *img);
 void	init_data(t_data *data, t_img *img);
 
-/* read map&img */
-void	read_img(t_data *data, t_img *img);
-void	*load_img_in_mlx(void *mlx, char *filename);
-void	read_map(t_data *data, char *filename);
+void	fill_data(t_data *data, t_img *img, char *filename);
+
+/* fill img */
+void	*read_img(t_data *data, void *mlx, char *filename);
+void	fill_img(t_data *data, t_img *img);
+
+/* fill map */
+void	fill_map(t_data *data, char *filename);
+void	read_map_line(t_data *data, char **map, int fd);
+void	error_during_read(t_data *data, char *line, char *msg, int j);
+int	set_map_elements(t_data *data, char *line, int i, int j);
 
 /* bsf cheack */
 bool	can_goal(t_data *data, char **bfs, int x, int y);
 bool	bfs_search(t_data *data, t_queue *que, char **map);
-void	enqueue_next_pos(t_queue *que, t_pos *cur);
+void	enqueue_next_pos(t_data *data, t_queue *que, t_pos *cur);
 bool	did_search(char **map, t_pos *cur, int *collect, bool *goal);
 
 bool	is_passable(t_data *data, char **map, int x_i, int y_j);
-void	init_queue(t_queue *queue, int width, int height);
+void	init_queue(t_data *data, t_queue *que, int width, int height);
 void	enqueue(t_queue *que, int i, int j);
 t_pos	*dequeue(t_queue *que);
 void	free_map(char **map, int rows);
@@ -101,7 +109,7 @@ void	free_queue(t_queue *que);
 
 /* validate_map */
 void	free_map(char **map, int rows);
-bool	is_surrounded_walls(void **p, t_img *img, int width, int height);
+bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
 void	validate_map(t_data *data, int width, int height);
 
 /* window */

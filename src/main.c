@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/18 04:54:40 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/18 16:12:19 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_img	img;
 	// dataの読み込み
+	init_data(&data, &img);
+	init_img(&img);
 	if (argc != 2)
 		exit_ft_printf("Check number of arguments.", &data);
 	fill_data(&data, &img, argv[1]);
