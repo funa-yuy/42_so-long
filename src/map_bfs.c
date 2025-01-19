@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:06:03 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/19 19:32:38 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:14:35 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,6 @@ bool	did_search(char **map, t_pos *cur, int *collect, bool *goal)
 	}
 	return (false);
 }
-
-// void	enqueue_next_pos(t_queue *que, t_pos *pos, t_pos *cur)
-// {
-// 	if (is_passable(data, map, cur->i, cur->j - 1))
-// 	{
-// 		pos->i = cur->i;
-// 		pos->j = cur->j - 1;
-// 		enqueue(que, pos);
-// 	}
-// 	if (is_passable(data, map, cur->i, cur->j + 1))
-// 	{
-// 		pos->i = cur->i;
-// 		pos->j = cur->j + 1;
-// 		enqueue(que, pos);
-// 	}
-// 	if (is_passable(data, map, cur->i - 1, cur->j))
-// 	{
-// 		pos->i = cur->i - 1;
-// 		pos->j = cur->j;
-// 		enqueue(que, pos);
-// 	}
-// 	if (is_passable(data, map, cur->i + 1, cur->j))
-// 	{
-// 		pos->i = cur->i + 1;
-// 		pos->j = cur->j;
-// 		enqueue(que, pos);
-// 	}
-// }
 
 void	enqueue_next_pos(t_data *data, t_queue *que, t_pos *cur)
 {
@@ -99,17 +71,11 @@ bool	can_goal(t_data *data, char **map, int x, int y)
 {
 	bool	ret;
 	t_queue	que;
-	t_pos	pos;
 
 	ret = false;
 	init_queue(data, &que, x, y);
 	if (is_passable(data, map, data->player.i, data->player.j))
-	{
-		pos.i = data->player.i;
-		pos.j = data->player.j;
 		enqueue(&que, data->player.i, data->player.j);
-		// enqueue(&que, &pos);
-	}
 	ret = bfs_search(data, &que, map);
 	free_queue(&que);
 	return (ret);

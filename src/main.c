@@ -6,49 +6,15 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:43:29 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/19 18:36:06 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:13:23 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-// TODO: add cleanup
-// void	free_double_pointer(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (data->map->map[i])
-// 		i++;
-// 	while (i >= 0)
-// 		free(data->map->map[i--]);
-// 	free(data->map->map);
-// 	free(data->img);
-// }
-
-// void	handle_error(t_data *data, char *str, int num)
-// {
-// 	if (num)
-// 		free_double_pointer(data);
-// 	ft_putstr_fd(str, 2);
-// 	exit(EXIT_FAILURE);
-// }
-
-// int	ft_exit(t_data *data)
-// {
-// 	mlx_destroy_window(data->mlx, data->win);
-// 	printf("--------------------------------------------------\n");
-// 	printf("|              You gave up :(                    |\n");
-// 	printf("|   Is the game hard for you? Try again......    |\n");
-// 	printf("--------------------------------------------------\n");
-// 	free_double_pointer(data);
-// 	exit(EXIT_SUCCESS);
-// }
-	// free(data->img);
 int	window_close(t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
-	free_img(data, data->img);
+	free_data(data);
 	exit(0);
 	return (0);
 }
@@ -76,22 +42,16 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_img	img;
-	// dataの読み込み
+
 	init_data(&data, &img);
 	init_img(&img);
 	if (argc != 2)
 		exit_ft_printf("Check number of arguments.", &data);
 	fill_data(&data, &img, argv[1]);
-
-	// mapのvalidate
 	validate_map(&data, data.x_row, data.y_column);
-
-	// ゲーム画面の表示
 	data.win = mlx_new_window(data.mlx, data.x_row * IMG_SIZE, \
 		data.y_column * IMG_SIZE, "so_long");
 	disply_img(&data, data.p);
-
-	// 操作の設定
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, window_close, &data);
 	mlx_key_hook(data.win, key_push, &data);
 	mlx_loop(data.mlx);

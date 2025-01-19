@@ -6,7 +6,7 @@
 #    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/19 20:21:06 by mfunakos         ###   ########.fr        #
+#    Updated: 2025/01/19 21:56:44 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC_FILES = main.c \
 			map_bfs.c \
 			map_bfs_utils.c \
 			error_exit.c \
-			validate_map.c
+			validate_map.c \
+			free.c
 
 GNL_FILES = get_next_line.c \
 			get_next_line_utils.c

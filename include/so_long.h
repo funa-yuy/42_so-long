@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/19 20:47:24 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:10:54 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	fill_img(t_data *data, t_img *img);
 void	fill_map(t_data *data, char *filename);
 void	read_map_line(t_data *data, char **map, int fd);
 void	error_during_read(t_data *data, char *line, char *msg, int j);
-int	set_map_elements(t_data *data, char *line, int i, int j);
+int		set_map_elements(t_data *data, char *line, int i, int j);
 
 /* bsf cheack */
 bool	can_goal(t_data *data, char **bfs, int x, int y);
@@ -107,7 +107,6 @@ t_pos	*dequeue(t_queue *que);
 void	free_queue(t_queue *que);
 
 /* validate_map */
-void	free_map(t_data *data, int rows);
 bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
 void	validate_map(t_data *data, int width, int height);
 
@@ -121,8 +120,12 @@ void	move_player_y(t_data *data, int x, int y, int m);
 void	move_player_x(t_data *data, int x, int y, int m);
 bool	can_move(t_data *data, t_img *img, void *p_next);
 
+/* frees */
+void	free_data(t_data *data);
+void	free_map(t_data *data, int rows);
+void	free_img(t_data *data, t_img *img);
+
 /* utils */
 int		exit_ft_printf(char *msg, t_data *data);
 int		exit_perror(char *msg, t_data *data);
-void	free_img(t_data *data, t_img *img);
 #endif

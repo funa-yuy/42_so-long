@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miyuu <miyuu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:54:51 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 04:31:46 by miyuu            ###   ########.fr       */
+/*   Updated: 2025/01/19 21:50:14 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*read_img(t_data *data, void *mlx, char *filename)
 	size = IMG_SIZE;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		exit_perror("[FD ERROR]", data);
+		exit_perror("[OPEN ERROR]", data);
 	close(fd);
 	img = mlx_xpm_file_to_image(mlx, filename, &size, &size);
 	if (!img)

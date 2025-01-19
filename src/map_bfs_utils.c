@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 19:20:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/19 19:26:14 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:14:02 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ void	init_queue(t_data *data, t_queue *que, int width, int height)
 		exit_perror("[MALLOC ERROR]", data);
 }
 
-// void	enqueue(t_queue *que, t_pos *input)
 void	enqueue(t_queue *que, int i, int j)
 {
 	if ((que->tail + 2) % que->max_size == que->head)
 		return ;
-	// que->wait_que[(que->tail + 1) % que->max_size] = *input;
 	que->wait_que[(que->tail + 1) % que->max_size] = (t_pos){i, j};
 	que->tail = (que->tail + 1) % que->max_size;
 }

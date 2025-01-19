@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/19 20:48:38 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:06:42 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	read_map_line(t_data *data, char **map, int fd)
 			error_during_read(data, line, "[MAP ERROR]Not rectangular.", j);
 		map[j] = line;
 		data->x_row = i;
-		// printf("read_map_line:%s", map[j]);
 		line = get_next_line(fd);
 		j++;
 	}
@@ -77,24 +76,14 @@ void	read_map_line(t_data *data, char **map, int fd)
 
 void	fill_map(t_data *data, char *filename)
 {
-	// char	**map;
 	int		fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		exit_perror("[FD ERROR]", data);
-	// data->map = map;
+		exit_perror("[OPEN ERROR]", data);
 	data->map = (char **)malloc(sizeof(char *) * MAX_MAP);
 	if (!data->map)
 		exit_perror("[MALLOC ERROR]", data);
 	read_map_line(data, data->map, fd);
 	close(fd);
 }
-
-	// if (can_goal(data, map, data->x_row, data->y_column))
-	// 	free_map(map, data->y_column);
-	// else
-	// {
-	// 	free_map(map, data->y_column);
-	// 	exit_ft_printf("[MAP ERROR] Impossible to reach goal.", data);
-	// }

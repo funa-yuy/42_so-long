@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 03:07:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 16:12:05 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:12:21 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	init_img(t_img *img)
 
 void	fill_data(t_data *data, t_img *img, char *filename)
 {
-	// init_data(data, img);
-	// init_img(img);
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		exit_ft_printf("mlx init failed.", data);
