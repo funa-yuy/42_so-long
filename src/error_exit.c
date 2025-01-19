@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:20:52 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/18 16:36:51 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 20:47:45 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	free_img(t_data *data, t_img *img)
 int	exit_ft_printf(char *msg, t_data *data)
 {
 	ft_printf("%s\n", msg);
+	if (data->map != NULL)
+		free_map(data, data->y_column);
+	// free(data->map);
 	if (data->img)
 		free_img(data, data->img);
 	if (data->win)
@@ -50,6 +53,8 @@ int	exit_ft_printf(char *msg, t_data *data)
 int	exit_perror(char *msg, t_data *data)
 {
 	perror(msg);
+	if (data->map != NULL)
+		free_map(data, data->y_column);
 	if (data->img)
 		free_img(data, data->img);
 	if (data->win)

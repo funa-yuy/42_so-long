@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 15:39:05 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 20:48:38 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	set_map_elements(t_data *data, char *line, int i, int j)
 void	error_during_read(t_data *data, char *line, char *msg, int j)
 {
 	free(line);
-	free_map(data->map, j);
+	free_map(data, j);
 	exit_ft_printf(msg, data);
 }
 
@@ -67,6 +67,7 @@ void	read_map_line(t_data *data, char **map, int fd)
 			error_during_read(data, line, "[MAP ERROR]Not rectangular.", j);
 		map[j] = line;
 		data->x_row = i;
+		// printf("read_map_line:%s", map[j]);
 		line = get_next_line(fd);
 		j++;
 	}

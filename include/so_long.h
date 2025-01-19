@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 16:13:24 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 20:47:24 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,10 @@ bool	is_passable(t_data *data, char **map, int x_i, int y_j);
 void	init_queue(t_data *data, t_queue *que, int width, int height);
 void	enqueue(t_queue *que, int i, int j);
 t_pos	*dequeue(t_queue *que);
-void	free_map(char **map, int rows);
 void	free_queue(t_queue *que);
 
 /* validate_map */
-void	free_map(char **map, int rows);
+void	free_map(t_data *data, int rows);
 bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
 void	validate_map(t_data *data, int width, int height);
 

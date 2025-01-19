@@ -6,23 +6,25 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 04:39:28 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/18 16:50:45 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/19 20:48:46 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	free_map(char **map, int rows)
+void	free_map(t_data *data, int rows)
 {
 	int	i;
 
 	i = 0;
 	while (i < rows)
 	{
-		free(map[i]);
+		if (data->map[i])
+			free(data->map[i]);
 		i++;
 	}
-	free(map);
+	free(data->map);
+	data->map = NULL;
 }
 
 bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height)
@@ -57,10 +59,12 @@ void	validate_map(t_data *data, int width, int height)
 	if (!(is_surrounded_walls(data, data->img, width, height)))
 		exit_ft_printf("[MAP ERROR]The map is not surrounded by walls.", data);
 	if (can_goal(data, data->map, data->x_row, data->y_column))
-		free_map(data->map, data->y_column);
+	{
+		// free_map(data->map, data->y_column);
+	}
 	else
 	{
-		free_map(data->map, data->y_column);
+		// free_map(data->map, data->y_column);
 		exit_ft_printf("[MAP ERROR] Impossible to reach goal.", data);
 	}
 }
