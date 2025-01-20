@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 04:39:28 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/20 23:05:19 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 23:16:52 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height)
 	return (true);
 }
 
-bool	is_only_one_p_e(t_data *data, t_img *img, int width, int height)
+bool	are_dup_p_e(t_data *data, t_img *img, int width, int height)
 {
 	int	con_player;
 	int	con_exit;
@@ -58,9 +58,9 @@ bool	is_only_one_p_e(t_data *data, t_img *img, int width, int height)
 		}
 		j++;
 	}
-	if (con_player != 1 || con_exit != 1)
-		return (false);
-	return (true);
+	if (con_player == 1 && con_exit == 1)
+		return (true);
+	return (false);
 }
 
 void	validate_number_elements(t_data *data, int width, int height)
@@ -71,7 +71,7 @@ void	validate_number_elements(t_data *data, int width, int height)
 		exit_ft_printf("[MAP ERROR]The 'P' element is incorrect.", data);
 	if (data->exit.i == 0 && data->exit.j == 0)
 		exit_ft_printf("[MAP ERROR]The 'E' element is incorrect.", data);
-	if (!is_only_one_p_e(data, data->img, width, height))
+	if (!are_dup_p_e(data, data->img, width, height))
 		exit_ft_printf("[MAP ERROR]Please only have one 'P' and one 'E'.", \
 						data);
 }
