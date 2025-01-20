@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/20 18:48:42 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:04:44 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@
 # define GOAL	'E'
 # define COLLECTS	'C'
 # define PASSED	'3'
+
+# define XPM_EMPTY		"textures/empty.xpm"
+# define XPM_WALL		"textures/wall.xpm"
+# define XPM_COLLECT	"textures/collects.xpm"
+# define XPM_EXIT		"textures/exit.xpm"
+# define XPM_PLAYER		"textures/souzou_got_01.xpm"
 
 /* struct */
 typedef struct pos
@@ -81,7 +87,6 @@ typedef struct queue
 /* init struct */
 void	init_img(t_img *img);
 void	init_data(t_data *data, t_img *img);
-
 void	fill_data(t_data *data, t_img *img, char *filename);
 
 /* fill img */
@@ -96,6 +101,10 @@ bool	validate_mapsize(t_data *data, char *line, int i, int j);
 void	exit_during_read(t_data *data, char *line, char *msg, int j);
 int		set_map_elements(t_data *data, char *line, int i, int j);
 
+/* validate_map */
+bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
+void	validate_map_format(t_data *data, int width, int height);
+
 /* bsf cheack */
 bool	can_goal(t_data *data, char **bfs, int x, int y);
 bool	bfs_search(t_data *data, t_queue *que, char **map);
@@ -106,10 +115,6 @@ void	init_queue(t_data *data, t_queue *que, int width, int height);
 void	enqueue(t_queue *que, int i, int j);
 t_pos	*dequeue(t_queue *que);
 void	free_queue(t_queue *que);
-
-/* validate_map */
-bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
-void	validate_map_format(t_data *data, int width, int height);
 
 /* window */
 void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);

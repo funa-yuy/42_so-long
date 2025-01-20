@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/20 20:40:31 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:56:13 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	read_map_line(t_data *data, char **map, int fd)
 	j = 0;
 	while (line != NULL && line[0] != '\n')
 	{
-		if (j > 99)
+		if (j >= MAX_MAP)
 			exit_during_read(data, line, \
 				"[MAP ERROR]The map height must be less than 100.", j);
 		i = 0;
-		while (i >= 0 && i <= 100 && line[i] != '\n')
+		while (i >= 0 && i <= MAX_MAP && line[i] != '\n')
 			i = set_map_elements(data, line, i, j);
 		validate_mapsize(data, line, i, j);
 		map[j] = line;

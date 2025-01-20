@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:54:51 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/19 21:50:14 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:59:35 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	*read_img(t_data *data, void *mlx, char *filename)
 
 void	fill_img(t_data *data, t_img *img)
 {
-	img->em_img = read_img(data, data->mlx, "textures/empty.xpm");
-	img->wall_img = read_img(data, data->mlx, "textures/wall.xpm");
-	img->col_img = read_img(data, data->mlx, "textures/collects.xpm");
-	img->exit_img = read_img(data, data->mlx, "textures/exit.xpm");
-	img->p_img = read_img(data, data->mlx, "textures/souzou_got_01.xpm");
+	img->em_img = read_img(data, data->mlx, XPM_EMPTY);
+	img->wall_img = read_img(data, data->mlx, XPM_WALL);
+	img->col_img = read_img(data, data->mlx, XPM_COLLECT);
+	img->exit_img = read_img(data, data->mlx, XPM_EXIT);
+	img->p_img = read_img(data, data->mlx, XPM_PLAYER);
 }

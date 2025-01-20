@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:29:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/20 20:43:24 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:56:21 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	validate_mapsize(t_data *data, char *line, int i, int j)
 	if (j > 0 && data->x_row != i)
 		exit_during_read(data, line, \
 			"[MAP ERROR]Not rectangular.", j);
-	if (i > 100)
+	if (i > MAX_MAP)
 		exit_during_read(data, line, \
 			"[MAP ERROR]The width of the map must be less than 100.", j);
 	return (true);
