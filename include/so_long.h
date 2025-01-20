@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/20 22:04:44 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:57:20 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int		set_map_elements(t_data *data, char *line, int i, int j);
 /* validate_map */
 bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
 void	validate_map_format(t_data *data, int width, int height);
+void	validate_number_elements(t_data *data, int width, int height);
+bool	is_only_one_p_e(t_data *data, t_img *img, int width, int height);
 
 /* bsf cheack */
 bool	can_goal(t_data *data, char **bfs, int x, int y);
