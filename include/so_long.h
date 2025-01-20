@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/19 22:10:54 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:10:32 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	fill_img(t_data *data, t_img *img);
 /* fill map */
 void	fill_map(t_data *data, char *filename);
 void	read_map_line(t_data *data, char **map, int fd);
-void	error_during_read(t_data *data, char *line, char *msg, int j);
+bool	validate_mapsize(t_data *data, char *line, int i, int j);
+void	exit_during_read(t_data *data, char *line, char *msg, int j);
 int		set_map_elements(t_data *data, char *line, int i, int j);
 
 /* bsf cheack */
@@ -99,7 +100,6 @@ bool	can_goal(t_data *data, char **bfs, int x, int y);
 bool	bfs_search(t_data *data, t_queue *que, char **map);
 void	enqueue_next_pos(t_data *data, t_queue *que, t_pos *cur);
 bool	did_search(char **map, t_pos *cur, int *collect, bool *goal);
-
 bool	is_passable(t_data *data, char **map, int x_i, int y_j);
 void	init_queue(t_data *data, t_queue *que, int width, int height);
 void	enqueue(t_queue *que, int i, int j);

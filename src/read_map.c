@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 02:48:38 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/19 22:06:42 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:10:50 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,28 @@ int	set_map_elements(t_data *data, char *line, int i, int j)
 	return (++i);
 }
 
-void	error_during_read(t_data *data, char *line, char *msg, int j)
+void	exit_during_read(t_data *data, char *line, char *msg, int j)
 {
 	free(line);
 	free_map(data, j);
 	exit_ft_printf(msg, data);
+}
+
+bool	validate_mapsize(t_data *data, char *line, int i, int j)
+{
+	if (i < 0)
+		exit_during_read(data, line, \
+			"[MAP ERROR]There is an invalid character.", j);
+	if (j > 0 && data->x_row != i)
+		exit_during_read(data, line, \
+			"[MAP ERROR]Not rectangular.", j);
+	if (i > 100)
+		exit_during_read(data, line, \
+			"[MAP ERROR]The width of the map must be less than 100.", j);
+	if (j > 100)
+		exit_during_read(data, line, \
+			"[MAP ERROR]The map height must be less than 100.", j);
+	return (true);
 }
 
 void	read_map_line(t_data *data, char **map, int fd)
@@ -55,16 +72,12 @@ void	read_map_line(t_data *data, char **map, int fd)
 	if (line == NULL)
 		exit_ft_printf("[MAP ERROR]Map file is empty.", data);
 	j = 0;
-	while (line != NULL && line[0] != '\n')
+	while (j <= 100 && line != NULL && line[0] != '\n')
 	{
 		i = 0;
-		while (i >= 0 && line[i] != '\n')
+		while (i >= 0 && i <= 100 && line[i] != '\n')
 			i = set_map_elements(data, line, i, j);
-		if (i < 0)
-			error_during_read(data, line, \
-				"[MAP ERROR]There is an invalid character.", j);
-		if (j > 0 && data->x_row != i)
-			error_during_read(data, line, "[MAP ERROR]Not rectangular.", j);
+		validate_mapsize(data, line, i, j);
 		map[j] = line;
 		data->x_row = i;
 		line = get_next_line(fd);
