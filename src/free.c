@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 21:53:46 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/19 22:11:55 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:11:02 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_data(t_data *data)
 	}
 }
 
-// NOTE: 最小限のデータだけ渡すのが本来良さそうだよね
 void	free_map(t_data *data, int rows)
 {
 	int	i;

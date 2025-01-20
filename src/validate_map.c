@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 04:39:28 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/19 22:15:04 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:26:33 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height)
 	return (true);
 }
 
-void	validate_map(t_data *data, int width, int height)
+void	validate_map_format(t_data *data, int width, int height)
 {
 	if (data->player.i == 0 && data->player.j == 0)
 		exit_ft_printf("[MAP ERROR]The 'P' element is incorrect.", data);

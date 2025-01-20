@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:13:57 by miyuu             #+#    #+#             */
-/*   Updated: 2025/01/20 16:10:32 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:48:42 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	fill_img(t_data *data, t_img *img);
 /* fill map */
 void	fill_map(t_data *data, char *filename);
 void	read_map_line(t_data *data, char **map, int fd);
+bool	validate_extension(char *filename);
 bool	validate_mapsize(t_data *data, char *line, int i, int j);
 void	exit_during_read(t_data *data, char *line, char *msg, int j);
 int		set_map_elements(t_data *data, char *line, int i, int j);
@@ -108,7 +109,7 @@ void	free_queue(t_queue *que);
 
 /* validate_map */
 bool	is_surrounded_walls(t_data *data, t_img *img, int width, int height);
-void	validate_map(t_data *data, int width, int height);
+void	validate_map_format(t_data *data, int width, int height);
 
 /* window */
 void	disply_img(t_data *data, void *p_img[MAX_MAP][MAX_MAP]);

@@ -6,17 +6,17 @@
 #    By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/08 01:21:55 by miyuu             #+#    #+#              #
-#    Updated: 2025/01/19 21:56:44 by mfunakos         ###   ########.fr        #
+#    Updated: 2025/01/20 20:11:23 by mfunakos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g # -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -g
 NAME = so_long
 
 # Directories
 SRC_DIR = ./src
-LIBFT_DIR = ./lib//libft
+LIBFT_DIR = ./lib/libft
 PRINTF_DIR = ./lib/ft_printf
 GNL_DIR = ./lib/get_next_line
 MLX_DIR	= ./minilibx-linux
@@ -28,11 +28,12 @@ SRC_FILES = main.c \
 			move.c \
 			read_img.c \
 			read_map.c \
-			map_bfs.c \
-			map_bfs_utils.c \
+			map_route.c \
+			map_route_utils.c \
 			error_exit.c \
 			validate_map.c \
-			free.c
+			free.c \
+			validate_mapfile.c
 
 GNL_FILES = get_next_line.c \
 			get_next_line_utils.c
