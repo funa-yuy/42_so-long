@@ -6,7 +6,7 @@
 /*   By: mfunakos <mfunakos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:29:13 by mfunakos          #+#    #+#             */
-/*   Updated: 2025/01/20 21:56:21 by mfunakos         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:01:00 by mfunakos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ bool	validate_extension(char *filename)
 	size_t	i;
 
 	i = ft_strlen(filename) - 1;
-	if (filename[i - 3] == '.' && filename[i - 2] == 'b' \
-		&& filename[i - 1] == 'e' && filename[i] == 'r')
-		return (true);
+	if (i > 4 && filename[i - 4] != '/')
+	{
+		if (filename[i - 3] == '.' && filename[i - 2] == 'b' \
+			&& filename[i - 1] == 'e' && filename[i] == 'r')
+			return (true);
+	}
 	return (false);
 }
 
